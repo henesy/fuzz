@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-Fuzz(1) is tested on the [9front](http://9front.org) operating system and as such uses its libraries and runs against its kernels. 
+fuzz(1) is tested on the [9front](http://9front.org) operating system and as such uses its libraries and runs against its kernels. 
 
 Theoretically fuzz could be ported to unix using [plan9port](https://github.com/9fans/plan9port), but this would require a Plan 9 kernel in user space which doesn't really exist outside of [9vx](https://swtch.com/9vx/) which is untested in this regard.
 
