@@ -5,24 +5,31 @@
 void
 usage(void)
 {
-	fprint(2, "usage: %s [-k kernel name]\n", argv0);
+	fprint(2, "usage: %s [-n rounds] calls\n", argv0);
 	exits("usage");
 }
 
 void
 main(int argc, char *argv[])
 {
-	char *kname;
+	int nrounds = 1;
+	int i;
 
 	ARGBEGIN{
-		case 'k':
-			kname = ARGF();
+		case 'n':
+			// Number of rounds to iterate fuzzing for
+			nrounds = atoi(ARGF());
 			break;
 		default:
 			usage();
 	}ARGEND
 
+	// Acquire a list of calls specified by spaces (fuzz -n 1 read write seek)
 	
+	
+	for(i = 0; i < nrounds; i++){
+		
+	}
 
 	exits(nil);
 }

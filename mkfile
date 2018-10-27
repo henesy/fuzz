@@ -4,7 +4,8 @@ TARG = fuzz
 
 BIN = /$objtype/bin
 
-OFILES = main.$O
+OFILES = main.$O \
+					input.$O
 
 HFILES = fuzz.h
 
