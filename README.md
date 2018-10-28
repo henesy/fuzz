@@ -16,7 +16,9 @@ Theoretically fuzz could be ported to unix using [plan9port](https://github.com/
 
 ## Usage
 
+To perform up to round 5 of fuzzing for the read, write, open, and close calls:
 
+	fuzz -n 5 read write open close
 
 ## Recommended reading
 

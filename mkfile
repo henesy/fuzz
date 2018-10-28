@@ -5,9 +5,10 @@ TARG = fuzz
 BIN = /$objtype/bin
 
 OFILES = main.$O \
-					input.$O
+		input.$O \
+		list.$O
 
-HFILES = fuzz.h
+HFILES = fuzz.h list.h
 
 MAN = fuzz.man
 
