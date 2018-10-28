@@ -2,6 +2,9 @@
 #define FUZZ_H
 #include "list.h"
 
+// Number of calls in enum calls
+#define NCALLS 65
+
 /* 
 For full list of syscalls:
 
@@ -89,8 +92,12 @@ struct caller
 	call			c;			// System call in use
 	char*		name;		// Real name of syscall
 	int			round;		// Last run executed
-	List			inputs;		// List of input types in order from left→right
+	int			seed;		// Seed call was initialized with
+//	List			inputs;		// List of input types in order from left→right
 };
+
+// Index of system calls -- one for each enum'd system call
+caller syscalls[NCALLS];
 
 /* == Function prototypes == */
 

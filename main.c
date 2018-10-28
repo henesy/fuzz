@@ -14,7 +14,6 @@ main(int argc, char *argv[])
 {
 	int nrounds = -1;
 	int i;
-	List syscalls;
 
 	ARGBEGIN{
 		case 'n':
