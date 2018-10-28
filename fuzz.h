@@ -89,7 +89,7 @@ struct caller
 	call			c;			// System call in use
 	char*		name;		// Real name of syscall
 	int			round;		// Last run executed
-	List			inputs;
+	List			inputs;		// List of input types in order from left→right
 };
 
 /* == Function prototypes == */

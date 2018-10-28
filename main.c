@@ -12,8 +12,9 @@ usage(void)
 void
 main(int argc, char *argv[])
 {
-	int nrounds = 1;
+	int nrounds = -1;
 	int i;
+	List syscalls;
 
 	ARGBEGIN{
 		case 'n':
@@ -25,9 +26,13 @@ main(int argc, char *argv[])
 	}ARGEND
 
 	// Acquire a list of calls specified by spaces (fuzz -n 1 read write seek)
+	for(;*argv;){
+		print("Loading call: %s\n", *argv++);
+		// TODO -- add to list
+	}
 	
-	
-	for(i = 0; i < nrounds; i++){
+	// Operate for the desired number of rounds, -1 is infinite
+	for(i = 0; i < nrounds || nrounds < 0; i++){
 		
 	}
 

@@ -18,7 +18,6 @@ ladd(List* l, void* p)
 	new->dat = p;
 	new->next = nil;
 	Node* n = l->root;
-	//Node* prev = nil;
 	
 	if(l->size == 0){
 		l->root = new;
