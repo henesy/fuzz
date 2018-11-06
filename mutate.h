@@ -1,3 +1,6 @@
+#ifndef MUT_H
+#define MUT_H
+
 void mut_int();
 
 void mut_uint();
@@ -23,3 +26,5 @@ void mut_IOchunkstar();
 void mut_dirstar();
 
 void mut_dirstar_star();
+
+#endif

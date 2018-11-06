@@ -1,9 +1,12 @@
 #ifndef FUZZ_H
 #define FUZZ_H
+#include <u.h>
+#include <libc.h>
 #include "list.h"
+#include "mutate.h"
 
 // Number of calls in enum calls
-#define NCALLS 65
+#define NCALLS 66
 
 /* 
 For full list of syscalls:
@@ -85,6 +88,9 @@ sc_sysname,		//	sysname(void);
 sc_werrstr		//	werrstr(char*, ...);
 };
 
+// User space system call names table -- NCALLS length -- in input.c
+extern char *callnames[NCALLS];
+
 // Structure to track state of system calling
 typedef struct caller caller;
 struct caller
@@ -102,6 +108,6 @@ caller syscalls[NCALLS];
 /* == Function prototypes == */
 
 // input.c
-void* mkinput(caller);
+void* mkinput(caller*);
 
 #endif

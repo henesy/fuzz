@@ -1,14 +1,11 @@
-#include <u.h>
-#include <libc.h>
 #include "fuzz.h"
-#include "mutate.h"
 
 // Procedurally generate input to syscall
 void*
-mkinput(caller sc)
+mkinput(caller *sc)
 {
 	// TODO
-	switch(sc.call) {
+	switch(sc->c) {
 		case sc_exits :			//	_exits(char*);
 		case sc_abort :			//	abort(void);
 		case sc_access :		//	access(char* : int);
@@ -76,7 +73,77 @@ mkinput(caller sc)
 		case sc_sysname :		//	sysname(void);
 		case sc_werrstr :		//	werrstr(char* : ...);
 		default :
-			#PANIC!
+			exits("Unknown system call!");
 	}
 	return nil;
 }
+
+// Init callnames here, is extern in fuzz.h
+char *callnames[NCALLS]= {
+"_exits",
+"abort",
+"access",
+"alarm",
+"await",
+"bind",
+"brk",
+"chdir",
+"close",
+"create",
+"dup",
+"errstr",
+"exec",
+"execl",
+"fork",
+"rfork",
+"fauth",
+"fstat",
+"fwstat",
+"fversion",
+"mount",
+"unmount",
+"noted",
+"notify",
+"open",
+"fd2path",
+"pipe",
+"pread",
+"preadv",
+"pwrite",
+"pwritev",
+"read",
+"readn",
+"readv",
+"remove",
+"sbrk",
+"oseek",
+"seek",
+"segattach",
+"segbrk",
+"segdetach",
+"segflush",
+"segfree",
+"semacquire",
+"semrelease",
+"sleep",
+"stat",
+"tsemacquire",
+"wait",
+"waitpid",
+"write",
+"writev",
+"wstat",
+"rendezvous",
+"dirstat",
+"dirfstat",
+"dirwstat",
+"dirfwstat",
+"dirread",
+"nulldir",
+"dirreadall",
+"getpid",
+"getppid",
+"rerrstr",
+"sysname",
+"werrstr"
+};
