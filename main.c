@@ -37,7 +37,7 @@ main(int argc, char *argv[])
 		int index;
 		if(index = name2index(*argv) > 0){
 			print("Loading call: %s\n", *argv);
-			ladd(&tofuzz, &index); // Might be dangerous, pls fix
+			ladd(&tofuzz, &syscalls[index]); // Might be dangerous, pls fix
 		}else{
 			print("Error: Invalid system call: %s\n", *argv);
 			exits("Encountered invalid syscall");
