@@ -88,6 +88,18 @@ fuzz(caller *sc)
 	}
 }
 
+
+// Syncs the disk in hjfs
+void
+hjsync()
+{
+	// open file and write to sync disk
+	int hjfs = open("/srv/hjfs.cmd", OWRITE);
+	fprint(hjfs, "sync\n");
+	close(hjfs);
+}
+
+
 // Init callnames here, is extern in fuzz.h
 char *callnames[NCALLS]= {
 "_exits",
@@ -158,13 +170,10 @@ char *callnames[NCALLS]= {
 "werrstr"
 };
 
-
-// Syncs the disk in hjfs
-void
-hjsync()
-{
-	// open file and write to sync disk
-	int hjfs = open("/srv/hjfs.cmd", OWRITE);
-	fprint(hjfs, "sync\n");
-	close(hjfs);
-}
+// Init callnames here, is extern in fuzz.h
+char *typenames[NTYPES]= {
+"int",
+"long",
+"Dir*",
+"char*"
+};

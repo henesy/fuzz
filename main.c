@@ -32,8 +32,6 @@ main(int argc, char *argv[])
 		default:
 			usage();
 	}ARGEND
-	
-	logfd = open("./fuzz.log", OWRITE);
 
 	// Initialize the table of all system calls
 	initsctable();
@@ -49,6 +47,8 @@ main(int argc, char *argv[])
 			exits("Encountered invalid syscall");
 		}
 	}
+	
+	logfd = open("./fuzz.log", OWRITE);
 	
 	// Operate for the desired number of rounds, -1 is infinite
 	for(i = 0; i < nrounds || nrounds < 0; i++){
