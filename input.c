@@ -101,10 +101,9 @@ log_call(caller *sc)
 	fprint(logfd, "\n\tRound #: %d", sc->round);
 	fprint(logfd, "\n\tSeed: %d", sc->seed);
 
-
 	int x;
-	for (x; x < sc->inputs.size; x++) {
-	
+	for (x; x < ((sc->inputs).size); x++) {
+		fprint(logfd, "\n\t\t%s", callnames[ ((t_type*) lget(&(sc->inputs), x))->t ]);
 	}
 }
 
