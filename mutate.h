@@ -1,30 +1,36 @@
 #ifndef MUT_H
 #define MUT_H
 
-void mut_int();
+void mut_int(int* in_val);
 
-void mut_uint();
+void mut_uint(uint* in_val);
 
-void mut_charstar();
+void mut_char(char* in_val)
 
-void mut_ucharstar();
+void mut_char_star();
 
-void mut_charstar_arr();
+void mut_uchar_star();
 
-void mut_long();
+void mut_char_star_arr();
 
-void mut_longstar();
+void mut_long(long* in_val);
 
-void mut_ulong();
+void mut_long_star();
 
-void mut_vlong();
+void mut_ulong(ulong* in_val);
 
-void mut_voidstar();
+void mut_vlong(vlong* in_val);
 
-void mut_IOchunkstar();
+void mut_void_star();
 
-void mut_dirstar();
+void mut_IOchunk(IOchunk* in_val)
 
-void mut_dirstar_star();
+void mut_IOchunk_star();
+
+void mut_dir(dir* in_val)
+
+void mut_dir_star();
+
+void mut_dir_star_star();
 
 #endif

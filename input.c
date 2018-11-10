@@ -15,6 +15,19 @@ mkinput(caller *sc)
 		case sc_brk :			//	brk(void*);
 		case sc_chdir :			//	chdir(char*);
 		case sc_close :			//	close(int);
+			// increment the round counter
+			(sc->round)++;
+			// with this call, pass the address of the input so that
+			// it's value is directly modified by the input generator
+
+			(sc->List)->
+
+			// open file and write to sync disk
+			File* hjfs = fopen("/srv/hjfs.cmd", "w");
+			fprintf(hjfs, "sync");
+			
+			// execute the call
+			break;
 		case sc_create :		//	create(char* : int : ulong);
 		case sc_dup :			//	dup(int : int);
 		case sc_errstr :		//	errstr(char* : uint);

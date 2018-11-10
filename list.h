@@ -17,7 +17,7 @@ struct Node {
 
 struct List {
 	Node*	root;
-	int		size;
+	int	size;
 };
 
 // Create a new list

@@ -1,8 +1,9 @@
 #include "fuzz.h"
 
 void
-mut_int()
+mut_int(int* in_val)
 {
+
 }
 
 void
