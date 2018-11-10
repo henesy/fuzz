@@ -17,14 +17,24 @@ fuzz(caller *sc)
 		case sc_close :			//	close(int);
 			// increment the round counter
 			(sc->round)++;
-			// with this call, pass the address of the input so that
-			// it's value is directly modified by the input generator
 
-			//(sc->List)->
+			// mutate the input
+			int fd;
+			mut_int(&fd);
+			mut_int(&(((sc->List)->root)->dat));
 			
+			// store arguments in temp values for readability
+			int fd = (((sc->List)->root)->dat);
+
+			// log the variables
+			log_call(&sc);
+
+			// sync the disk
 			hjsync();
 			
 			// execute the call
+			close(fd);
+
 			break;
 		case sc_create :		//	create(char* : int : ulong);
 		case sc_dup :			//	dup(int : int);
@@ -88,6 +98,20 @@ fuzz(caller *sc)
 	}
 }
 
+// Logs the syscall arguments
+void
+log_call(caller *sc)
+{
+	fprint(logfd, "\nSystem Call: %s", sc->name);
+	fprint(logfd, "\n\tRound #: %d", sc->round);
+	fprint(logfd, "\n\tSeed: %d", sc->seed);
+
+
+	int x;
+	for (x; x < ((sc->List)->size); x++) {
+	
+	}
+}
 
 // Syncs the disk in hjfs
 void
@@ -98,7 +122,6 @@ hjsync()
 	fprint(hjfs, "sync\n");
 	close(hjfs);
 }
-
 
 // Init callnames here, is extern in fuzz.h
 char *callnames[NCALLS]= {
