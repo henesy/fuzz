@@ -1,7 +1,5 @@
 #include "fuzz.h"
 
-void hjsync(void);
-
 // Procedurally generate input to syscall
 void
 fuzz(caller *sc)
@@ -167,6 +165,6 @@ hjsync()
 {
 	// open file and write to sync disk
 	int hjfs = open("/srv/hjfs.cmd", OWRITE);
-	fprint(hjfs, "sync");
+	fprint(hjfs, "sync\n");
 	close(hjfs);
 }

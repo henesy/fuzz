@@ -109,5 +109,6 @@ caller syscalls[NCALLS];
 
 // input.c
 void	fuzz(caller*);
+void	hjsync(void);
 
 #endif
