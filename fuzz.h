@@ -99,7 +99,7 @@ struct caller
 	char*		name;		// Real name of syscall
 	int			round;		// Last run executed
 	int			seed;		// Seed call was initialized with
-//	List		inputs;		// List of input types in order from left→right
+	List		inputs;		// List of input types in order from left→right
 };
 
 // Index of system calls -- one for each enum'd system call
@@ -110,5 +110,12 @@ caller syscalls[NCALLS];
 // input.c
 void	fuzz(caller*);
 void	hjsync(void);
+
+// inlist.c
+List*	mkinlist(List*, call);
+
+// list.c → See list.h
+
+// mutate.c → See mutate.h
 
 #endif

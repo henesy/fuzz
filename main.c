@@ -1,5 +1,9 @@
 #include "fuzz.h"
 
+// Global variables are bad
+int logfd = -1; // fd of the log file, initialized in main
+
+
 // Commandline usage warning
 void
 usage(void)
@@ -28,6 +32,8 @@ main(int argc, char *argv[])
 		default:
 			usage();
 	}ARGEND
+	
+	logfd = open("./fuzz.log", OWRITE);
 
 	// Initialize the table of all system calls
 	initsctable();
@@ -53,6 +59,7 @@ main(int argc, char *argv[])
 		}
 	}
 
+	close(logfd);
 	exits(nil);
 }
 
@@ -67,6 +74,7 @@ initsctable(void)
 		syscalls[i].name = callnames[i]; // Pointer points to callnames
 		syscalls[i].round = -1;
 		syscalls[i].seed = -1;
+		mkinlist(&(syscalls[i].inputs), (call)i);
 	}
 }
 

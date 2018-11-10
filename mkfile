@@ -7,9 +7,10 @@ BIN = /$objtype/bin
 OFILES = main.$O \
 		input.$O \
 		mutate.$O \
-		list.$O 
+		list.$O \
+		inlist.$O
 
-HFILES = fuzz.h list.h
+HFILES = fuzz.h list.h mutate.h
 
 MAN = fuzz.man
 
