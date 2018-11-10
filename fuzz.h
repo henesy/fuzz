@@ -108,6 +108,6 @@ caller syscalls[NCALLS];
 /* == Function prototypes == */
 
 // input.c
-void* mkinput(caller*);
+void	fuzz(caller*);
 
 #endif

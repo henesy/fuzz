@@ -5,7 +5,7 @@ void mut_int(int* in_val);
 
 void mut_uint(uint* in_val);
 
-void mut_char(char* in_val)
+void mut_char(char* in_val);
 
 void mut_char_star();
 
@@ -23,11 +23,11 @@ void mut_vlong(vlong* in_val);
 
 void mut_void_star();
 
-void mut_IOchunk(IOchunk* in_val)
+void mut_IOchunk(IOchunk* in_val);
 
 void mut_IOchunk_star();
 
-void mut_dir(dir* in_val)
+void mut_dir(Dir* in_val);
 
 void mut_dir_star();
 

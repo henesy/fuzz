@@ -85,3 +85,21 @@ ldel(List* l, void* tofind, int(*comp)(void *, void *))
 	}
 	return dat;
 }
+
+// Gets a list element by "index" -- ArrayList style
+void*
+lget(List *l, int index)
+{
+	// Out of bounds check
+	if(index < 0 || index >= l->size)
+		return nil;
+
+	int i;
+	Node* n = l->root;
+	for(i = 0; i < l->size; i++, n = n->next)
+		if(i == index)
+			return n->dat;
+
+	// Should never happen
+	return nil;
+}

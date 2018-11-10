@@ -17,7 +17,7 @@ struct Node {
 
 struct List {
 	Node*	root;
-	int	size;
+	int		size;
 };
 
 // Create a new list
@@ -28,5 +28,8 @@ void ladd(List*, void*);
 
 // Search → delete from a list
 void* ldel(List*, void*, int(*comp)(void *, void *));
+
+// Access elements of a list by 'index'
+void* lget(List*, int);
 
 #endif

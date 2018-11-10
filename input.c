@@ -1,8 +1,10 @@
 #include "fuzz.h"
 
+void hjsync(void);
+
 // Procedurally generate input to syscall
-void*
-mkinput(caller *sc)
+void
+fuzz(caller *sc)
 {
 	// TODO
 	switch(sc->c) {
@@ -20,11 +22,9 @@ mkinput(caller *sc)
 			// with this call, pass the address of the input so that
 			// it's value is directly modified by the input generator
 
-			(sc->List)->
-
-			// open file and write to sync disk
-			File* hjfs = fopen("/srv/hjfs.cmd", "w");
-			fprintf(hjfs, "sync");
+			//(sc->List)->
+			
+			hjsync();
 			
 			// execute the call
 			break;
@@ -88,7 +88,6 @@ mkinput(caller *sc)
 		default :
 			exits("Unknown system call!");
 	}
-	return nil;
 }
 
 // Init callnames here, is extern in fuzz.h
@@ -160,3 +159,14 @@ char *callnames[NCALLS]= {
 "sysname",
 "werrstr"
 };
+
+
+// Syncs the disk in hjfs
+void
+hjsync()
+{
+	// open file and write to sync disk
+	int hjfs = open("/srv/hjfs.cmd", OWRITE);
+	fprint(hjfs, "sync");
+	close(hjfs);
+}

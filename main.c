@@ -46,7 +46,11 @@ main(int argc, char *argv[])
 	
 	// Operate for the desired number of rounds, -1 is infinite
 	for(i = 0; i < nrounds || nrounds < 0; i++){
-		
+		int j;
+		for(j = 0; j < tofuzz.size; j++){
+			// <Log here>
+			fuzz((caller*)lget(&tofuzz, j)); // Fuzz (this syncs the disk)
+		}
 	}
 
 	exits(nil);
