@@ -20,14 +20,9 @@ fuzz(caller *sc)
 
 			// mutate the input
 			int fd;
-			mut_int(&fd);
-			mut_int(&(((sc->List)->root)->dat));
-			
-			// store arguments in temp values for readability
-			int fd = (((sc->List)->root)->dat);
 
 			// log the variables
-			log_call(&sc);
+			log_call(sc);
 
 			// sync the disk
 			hjsync();
@@ -108,7 +103,7 @@ log_call(caller *sc)
 
 
 	int x;
-	for (x; x < ((sc->List)->size); x++) {
+	for (x; x < sc->inputs.size; x++) {
 	
 	}
 }

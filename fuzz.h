@@ -1,5 +1,6 @@
 #ifndef FUZZ_H
 #define FUZZ_H
+
 #include <u.h>
 #include <libc.h>
 #include "list.h"
@@ -8,6 +9,9 @@
 // Number of calls in enum calls
 #define NCALLS 66
 #define NTYPES 4
+
+// Global variables
+extern int logfd;
 
 /* 
 For full list of syscalls:
@@ -130,9 +134,11 @@ caller syscalls[NCALLS];
 // input.c
 void	fuzz(caller*);
 void	hjsync(void);
+void	log_call(caller*);
 
 // inlist.c
 List*	mkinlist(List*, call);
+
 
 // list.c → See list.h
 

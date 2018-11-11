@@ -23,7 +23,7 @@ mkinlist(List* l, call c)
 	case sc_chdir	:
 	 
 	case sc_close	:
-	 
+
 	case sc_create	:
 	 
 	case sc_dup	:
@@ -141,8 +141,4 @@ mkinlist(List* l, call c)
 	default:
 		return nil;
 	}
-
-
-
-	return l;
 }

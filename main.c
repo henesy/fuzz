@@ -3,7 +3,6 @@
 // Global variables are bad
 int logfd = -1; // fd of the log file, initialized in main
 
-
 // Commandline usage warning
 void
 usage(void)
