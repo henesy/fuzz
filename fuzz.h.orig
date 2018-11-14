@@ -96,6 +96,7 @@ sc_werrstr		//	werrstr(char*, ...);
 // Enum to track types of inputs
 typedef int type;
 enum type {
+<<<<<<< working copy
 t_int,
 t_uint,
 t_IOchunkS,
@@ -108,6 +109,12 @@ t_DirSS,
 t_char,
 t_uchar,
 t_charS
+=======
+t_int,		// int
+t_long,		// long
+t_DirS,		// Dir*
+t_charS		// char*
+>>>>>>> destination
 };
 
 // Structure to track an instance of a given type

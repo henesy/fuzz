@@ -109,26 +109,26 @@ log_call(caller *sc)
 		
 		switch(ele->t) {
 			case t_int :
-				fprint(logfd, "%d", (int) ele->var);
+				fprintf(logfd, "%d", (int) ele->var);
 				break;
 			case t_uint :
-				fprint(logfd, "%d", (uint) ele->var);
+				fprintf(logfd, "%d", (uint) ele->var);
 			case t_long :
-				fprint(logfd, "%ld", (long) ele->var);
+				fprintf(logfd, "%ld", (long) ele->var);
 				break;
 			case t_ulong :
-				fprint(logfd, "%lu", (ulong) ele->var);
+				fprintf(logfd, "%lu", (ulong) ele->var);
 				break;
 			case t_DirS :
-				fprint(logfd, "%s", (Dir*) ele->var);
+				fprintf(logfd, "%s", (Dir*) ele->var);
 				break;
 			case t_charS :
-				fprint(logfd, "%s", (char*) ele->var);
+				fprintf(logfd, "%s", (char*) ele->var);
 				break;
 			case t_char :
-				fprint(logfd, "%c", (char) ele->var);
+				fprintf(logfd, "%c", (char) ele->var);
 			default :
-				exits("Unknown input variable type!");
+				exit("Unknown input variable type!");
 		}
 	}
 }
