@@ -15,3 +15,5 @@ HFILES = fuzz.h list.h mutate.h
 MAN = fuzz.man
 
 </sys/src/cmd/mkone
+
+# Add things after this line

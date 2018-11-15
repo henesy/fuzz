@@ -2,23 +2,26 @@
 
 // HERE BE DRAGONS -- this should be moved to a generator
 // Generate the input list for the given syscall
+
 List*
 mkinlist(List* l, call c)
 {
+	// Iterate through l
+
 	switch(c){
-	case sc_exits	:
-	
+	case sc_exits:
+
 		break;
-	case sc_abort	:
+	case sc_abort:
 	 
 		break;
-	case sc_access	:
+	case sc_access:
 	
 		break;
-	case sc_alarm	:
+	case sc_alarm:
 	
 		break;
-	case sc_await	:
+	case sc_await:
 	
 		break;
 	case sc_bind	:
@@ -204,7 +207,10 @@ mkinlist(List* l, call c)
 	case sc_werrstr:
 	
 		break;
+
 	default:
 		return nil;
 	}
+
+	return nil; // Unreachable
 }

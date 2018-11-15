@@ -103,7 +103,7 @@ log_call(caller *sc)
 
 	int x;
 	for (x; x < ((sc->inputs).size); x++) {
-		fprint(logfd, "\n\t\t%s", callnames[ ((t_type*) lget(&(sc->inputs), x))->t ]);
+		//fprint(logfd, "\n\t\t%s", callnames[ ((t_type*) lget(&(sc->inputs), x))->t ]);
 	}
 }
 
