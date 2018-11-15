@@ -94,19 +94,20 @@ sc_werrstr		//	werrstr(char*, ...);
 };
 
 // Enum to track types of inputs
-typedef int type;
-enum type {
-t_int,
-t_long,
-t_DirS,
-t_charS
+typedef int tnum;
+enum tnum {
+t_int,		// int
+t_long,		// long
+t_DirS,		// Dir*
+t_charS		// char*
 };
 
 // Structure to track an instance of a given type
-typedef struct t_type t_type;
-struct t_type {
-	void *var; // Variable to track
-	type t; // Type of the variable to cast to
+typedef struct tinst tinst;
+struct tinst
+{
+	void*	var;	// Variable to track
+	tnum	t;		// Type of the variable to cast to
 };
 
 // Type names table -- in input.c
