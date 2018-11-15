@@ -1,0 +1,46 @@
+.TH FUZZ 1
+
+.SH NAME
+fuzz  \- kernel fuzzer from Plan 9 space
+
+.SH SYNOPSIS
+.B fuzz
+[
+.B -n
+.I rounds
+]
+.B call …
+
+.SH DESCRIPTION
+.I Fuzz
+
+.PP
+The options are:
+.PD
+
+.TP
+.B -n \fIrounds
+Perform fuzzing for \fIrounds\fR iterations.
+
+.PP
+.SH EXAMPLES
+
+To fuzz the read and write system calls for two rounds:
+.EX
+fuzz -n 2 read write
+.EE
+
+.PP
+.SH SOURCE
+.B https://bitbucket.org/cpre43121/fuzz-c
+
+.PP
+.SH "SEE ALSO"
+.IR intro (2),
+.IR syscall (1)
+
+.PP
+.SH BUGS
+
+Oh yeah.
+
