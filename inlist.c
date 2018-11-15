@@ -10,7 +10,7 @@ mkinlist(List* l, call c)
 	
 	switch(c){
 	// pls fix -- try removing the print
-	case sc_exits: print("Adding exits…\n");
+	case sc_exits: ;
 		t_type *t = malloc(1 * sizeof(t_type));
 		t->var = nil;
 		t->t = sc_exits;
