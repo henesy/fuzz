@@ -107,7 +107,8 @@ t_DirS,
 t_DirSS,
 t_char,
 t_uchar,
-t_charS
+t_charS,
+t_charSArr
 };
 
 // Structure to track an instance of a given type
