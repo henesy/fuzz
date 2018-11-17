@@ -21,6 +21,8 @@ fuzz(caller *sc)
 			// mutate the input
 			int fd;
 
+			//int_mut(lget(&(sc->inputs), 0));
+
 			// log the variables
 			log_call(sc);
 
@@ -112,12 +114,19 @@ log_call(caller *sc)
 				fprint(logfd, "%d", (int) ele->var);
 				break;
 			case t_uint :
-				fprint(logfd, "%d", (uint) ele->var);
+				fprint(logfd, "%d", (unsigned int) ele->var);
+				break;
 			case t_long :
 				fprint(logfd, "%ld", (long) ele->var);
 				break;
 			case t_ulong :
-				fprint(logfd, "%lu", (ulong) ele->var);
+				fprint(logfd, "%lu", (unsigned long) ele->var);
+				break;
+			case t_vlong :
+				fprint(logfd, "%llu", (long long) ele->var);
+				break;
+			case t_longS :
+				fprint(logfd, "%ld", (long*) ele->var);
 				break;
 			case t_DirS :
 				fprint(logfd, "%s", (Dir*) ele->var);
@@ -125,8 +134,15 @@ log_call(caller *sc)
 			case t_charS :
 				fprint(logfd, "%s", (char*) ele->var);
 				break;
+			case t_charSArr :
+				//fprint(logfd, "%s", (char*) ele->var);
+				break;
 			case t_char :
 				fprint(logfd, "%c", (char) ele->var);
+				break;
+			case t_uchar :
+				fprint(logfd, "%c", (unsigned char) ele->var);
+				break;
 			default :
 				exits("Unknown input variable type!");
 		}
