@@ -1185,25 +1185,25 @@ log_call(caller *sc)
 		
 		switch(ele->t) {
 			case t_int :
-				fprint(logfd, "%d", *(int) ele->var);
+				fprint(logfd, "%d", *(int*) ele->var);
 				break;
 			case t_uint :
-				fprint(logfd, "%d", *(unsigned int) ele->var);
+				fprint(logfd, "%d", *(unsigned int*) ele->var);
 				break;
 			case t_long :
-				fprint(logfd, "%ld", *(long) ele->var);
+				fprint(logfd, "%ld", *(long*) ele->var);
 				break;
 			case t_ulong :
-				fprint(logfd, "%lu", *(unsigned long) ele->var);
+				fprint(logfd, "%lu", *(unsigned long*) ele->var);
 				break;
 			case t_vlong :
-				fprint(logfd, "%llu", *(long long) ele->var);
+				fprint(logfd, "%lld", *(long long*) ele->var);
 				break;
 			case t_longS :
 				fprint(logfd, "%ld", *(long*) ele->var);
 				break;
-			case t_DirS :
-				fprint(logfd, "%s", *(Dir*) ele->var);
+			case t_DirS :  //TODO : verify that this works; compiler warns against
+				fprint(logfd, "%s", (Dir*) ele->var);
 				break;
 			case t_charS :
 				fprint(logfd, "%s", (char*) ele->var);
@@ -1212,10 +1212,10 @@ log_call(caller *sc)
 				//fprint(logfd, "%s", (char*) ele->var);
 				break;
 			case t_char :
-				fprint(logfd, "%c", *(char) ele->var);
+				fprint(logfd, "%c", *(char*) ele->var);
 				break;
 			case t_uchar :
-				fprint(logfd, "%c", *(unsigned char) ele->var);
+				fprint(logfd, "%c", *(unsigned char*) ele->var);
 				break;
 			default :
 				exits("Unknown input variable type!");
