@@ -7,21 +7,11 @@ fuzz(caller *sc)
 	// TODO
 	switch(sc->c) {
 		case sc_exits :			//	_exits(char*);
-		case sc_abort :			//	abort(void);
-		case sc_access :		//	access(char* : int);
-		case sc_alarm :			//	alarm(ulong);
-		case sc_await :			//	await(char* : int);
-		case sc_bind :			//	bind(char* : char* : int);
-		case sc_brk :			//	brk(void*);
-		case sc_chdir :			//	chdir(char*);
-		case sc_close :			//	close(int);
 			// increment the round counter
 			(sc->round)++;
 
 			// mutate the input
-			int fd;
-
-			//int_mut(lget(&(sc->inputs), 0));
+			mut_charstar((char**)lget(&(sc->inputs), 0));
 
 			// log the variables
 			log_call(sc);
@@ -30,66 +20,1150 @@ fuzz(caller *sc)
 			hjsync();
 			
 			// execute the call
-			close(fd);
+			exits( *(char**)lget(&(sc->inputs), 0) );
+
+			break;
+		case sc_abort :			//	abort(void);
+			// increment the round counter
+			(sc->round)++;
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			abort();
+
+			break;
+		case sc_access :		//	access(char* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_int((int*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			access(	*(char**)lget(&(sc->inputs), 0),
+				*(int*)lget(&(sc->inputs), 1) );
+
+			break;
+		case sc_alarm :			//	alarm(ulong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_ulong((ulong*)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			alarm( *(ulong*)lget(&(sc->inputs), 0) );
+
+			break;
+		case sc_await :			//	await(char* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_int((int*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			await(	*(char**)lget(&(sc->inputs), 0),
+				*(int*)lget(&(sc->inputs), 1) );
+
+			break;
+		case sc_bind :			//	bind(char* : char* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_charstar((char**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			bind(	*(char**)lget(&(sc->inputs), 0),
+				*(char**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
+		case sc_brk :			//	brk(void*);
+		case sc_chdir :			//	chdir(char*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			chdir( *(char**)lget(&(sc->inputs), 0) );
+
+			break;
+		case sc_close :			//	close(int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			close(*(int*)lget(&(sc->inputs), 0));
 
 			break;
 		case sc_create :		//	create(char* : int : ulong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_int((int*)lget(&(sc->inputs), 1));
+			mut_ulong((ulong*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			create(	*(char**)lget(&(sc->inputs), 0),
+				*(int*)lget(&(sc->inputs), 1), 
+				*(ulong*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_dup :			//	dup(int : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_int((int*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			dup(	*(int*)lget(&(sc->inputs), 0),
+				*(int*)lget(&(sc->inputs), 1));
+
+			break;
 		case sc_errstr :		//	errstr(char* : uint);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_uint((uint*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			errstr(	*(char**)lget(&(sc->inputs), 0),
+				*(uint*)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_exec :			//	exec(char* : char*[]);
+			//TODO - mut_char_star_arr not implemented
+			exits("SYSCALL NOT IMPLEMENTED");
+			break;
 		case sc_execl :			//	execl(char* : ...);
+			//TODO - not sure what to do with variable # of parameters
+			exits("SYSCALL NOT IMPLEMENTED");
+			break;
 		case sc_fork :			//	fork(void);
+			// increment the round counter
+			(sc->round)++;
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			fork();
+
+			break;
 		case sc_rfork :			//	rfork(int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			rfork(*(int*)lget(&(sc->inputs), 0));
+
+			break;
 		case sc_fauth :			//	fauth(int : char*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_charstar((char**)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			fauth(	*(int*)lget(&(sc->inputs), 0),
+				*(char**)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_fstat :			//	fstat(int : uchar* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			fstat(	*(int*)lget(&(sc->inputs), 0),
+				*(unsigned char**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_fwstat :		//	fwstat(int : uchar* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			fwstat(	*(int*)lget(&(sc->inputs), 0), 
+				*(unsigned char**)lget(&(sc->inputs), 1),  
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_fversion :		//	fversion(int : int : char* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_int((int*)lget(&(sc->inputs), 1));
+			mut_charstar((char**)lget(&(sc->inputs), 2));
+			mut_int((int*)lget(&(sc->inputs), 3));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			fversion(	*(int*)lget(&(sc->inputs), 0),
+					*(int*)lget(&(sc->inputs), 1),
+					*(char**)lget(&(sc->inputs), 2),
+					*(int*)lget(&(sc->inputs), 3) );
+
+			break;
 		case sc_mount :			//	mount(int : int : char* : int : char*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_int((int*)lget(&(sc->inputs), 1));
+			mut_charstar((char**)lget(&(sc->inputs), 2));
+			mut_int((int*)lget(&(sc->inputs), 3));
+			mut_charstar((char**)lget(&(sc->inputs), 4));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			mount(	*(int*)lget(&(sc->inputs), 0),
+				*(int*)lget(&(sc->inputs), 1), 
+				*(char**)lget(&(sc->inputs), 2),
+				*(int*)lget(&(sc->inputs), 3),
+				*(char**)lget(&(sc->inputs), 4) );
+
+			break;
 		case sc_unmount :		//	unmount(char* : char*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_charstar((char**)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			unmount(*(char**)lget(&(sc->inputs), 0),
+				*(char**)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_noted :			//	noted(int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			noted(*(int*)lget(&(sc->inputs), 0));
+
+			break;
 		case sc_notify :		//	notify(void(*)(void* : char*));
+			//TODO - this sc takes a function pointer, we don't have infrastructure for that
+			exits("SYSCALL NOT IMPLEMENTED");
+			break;
 		case sc_open :			//	open(char* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_int((int*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			open(	*(char**)lget(&(sc->inputs), 0),
+				*(int*)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_fd2path :		//	fd2path(int : char* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_charstar((char**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			fd2path(*(int*)lget(&(sc->inputs), 0),
+				*(char**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_pipe :			//	pipe(int*);
+			//TODO - this sc takes an int pointer, we don't have infrastructure for that
+			exits("SYSCALL NOT IMPLEMENTED");
+			break;
 		case sc_pread :			//	pread(int : void* : long : vlong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_voidstar((void**)lget(&(sc->inputs), 1));
+			mut_long((long*)lget(&(sc->inputs), 2));
+			mut_vlong((long long*)lget(&(sc->inputs), 3));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			pread(	*(int*)lget(&(sc->inputs), 0),
+				*(void**)lget(&(sc->inputs), 1),
+				*(long*)lget(&(sc->inputs), 2),
+				*(long long*)lget(&(sc->inputs), 3) );
+
+			break;
 		case sc_preadv :		//	preadv(int : IOchunk* : int : vlong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+			mut_vlong((long long*)lget(&(sc->inputs), 3));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			preadv(	*(int*)lget(&(sc->inputs), 0),
+				*(IOchunk**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2),
+				*(long long*)lget(&(sc->inputs), 3) );
+
+			break;
 		case sc_pwrite :		//	pwrite(int : void* : long : vlong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_voidstar((void**)lget(&(sc->inputs), 1));
+			mut_long((long*)lget(&(sc->inputs), 2));
+			mut_vlong((long long*)lget(&(sc->inputs), 3));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			pwrite(	*(int*)lget(&(sc->inputs), 0),
+				*(void**)lget(&(sc->inputs), 1),
+				*(long*)lget(&(sc->inputs), 2),
+				*(long long*)lget(&(sc->inputs), 3) );
+
+			break;
 		case sc_pwritev :		//	pwritev(int : IOchunk* : int : vlong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+			mut_vlong((long long*)lget(&(sc->inputs), 3));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			pwritev(*(int*)lget(&(sc->inputs), 0),
+				*(IOchunk**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2),
+				*(long long*)lget(&(sc->inputs), 3) );
+
+			break;
 		case sc_read :			//	read(int : void* : long);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_voidstar((void**)lget(&(sc->inputs), 1));
+			mut_long((long*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			read(	*(int*)lget(&(sc->inputs), 0),
+				*(void**)lget(&(sc->inputs), 1),
+				*(long*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_readn :			//	readn(int : void* : long);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_voidstar((void**)lget(&(sc->inputs), 1));
+			mut_long((long*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			readn(	*(int*)lget(&(sc->inputs), 0),
+				*(void**)lget(&(sc->inputs), 1),
+				*(long*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_readv :			//	readv(int : IOchunk* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			readv(	*(int*)lget(&(sc->inputs), 0),
+				*(IOchunk**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_remove :		//	remove(char*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			remove( *(char**)lget(&(sc->inputs), 0) );
+
+			break;
 		case sc_sbrk :			//	sbrk(ulong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_ulong((ulong*)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			sbrk( *(ulong*)lget(&(sc->inputs), 0) );
+
+			break;
 		case sc_oseek :			//	oseek(int : long : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_long((long*)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			oseek(	*(int*)lget(&(sc->inputs), 0),
+				*(long*)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_seek :			//	seek(int : vlong : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_vlong((long long*)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			seek(	*(int*)lget(&(sc->inputs), 0),
+				*(long long*)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_segattach :		//	segattach(int : char* : void* : ulong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_charstar((char**)lget(&(sc->inputs), 1));
+			mut_voidstar((void**)lget(&(sc->inputs), 2));
+			mut_ulong((unsigned long*)lget(&(sc->inputs), 3));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			segattach(	*(int*)lget(&(sc->inputs), 0),
+					*(char**)lget(&(sc->inputs), 1),
+					*(void**)lget(&(sc->inputs), 2),
+					*(unsigned long*)lget(&(sc->inputs), 3) );
+
+			break;
 		case sc_segbrk	 :		//	segbrk(void* : void*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_voidstar((void**)lget(&(sc->inputs), 0));
+			mut_voidstar((void**)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			segbrk(	*(void**)lget(&(sc->inputs), 0),
+				*(void**)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_segdetach :		//	segdetach(void*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_voidstar((void**)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			segdetach( *(void**)lget(&(sc->inputs), 0) );
+
+			break;
 		case sc_segflush :		//	segflush(void* : ulong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_voidstar((void**)lget(&(sc->inputs), 0));
+			mut_ulong((unsigned long*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			segflush(	*(void**)lget(&(sc->inputs), 0),
+					*(unsigned long*)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_segfree :		//	segfree(void* : ulong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_voidstar((void**)lget(&(sc->inputs), 0));
+			mut_ulong((unsigned long*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			segfree(*(void**)lget(&(sc->inputs), 0),
+				*(unsigned long*)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_semacquire :		//	semacquire(long* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_longstar((long**)lget(&(sc->inputs), 0));
+			mut_int((int*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			semacquire(	*(long**)lget(&(sc->inputs), 0),
+					*(int*)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_semrelease :		//	semrelease(long* : long);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_longstar((long**)lget(&(sc->inputs), 0));
+			mut_long((long*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			semrelease(	*(long**)lget(&(sc->inputs), 0),
+					*(long*)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_sleep :			//	sleep(long);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_long((long*)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			sleep( *(long*)lget(&(sc->inputs), 0) );
+
+			break;
 		case sc_stat :			//	stat(char* : uchar* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			stat(	*(char**)lget(&(sc->inputs), 0),
+				*(unsigned char**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_tsemacquire :		//	tsemacquire(long* : ulong);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_longstar((long**)lget(&(sc->inputs), 0));
+			mut_ulong((ulong*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			tsemacquire(	*(long**)lget(&(sc->inputs), 0),
+					*(ulong*)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_wait :			//	wait(void);
+			// increment the round counter
+			(sc->round)++;
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			wait();
+
+			break;
 		case sc_waitpid :		//	waitpid(void);
+			// increment the round counter
+			(sc->round)++;
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			waitpid();
+
+			break;
 		case sc_write :			//	write(int : void* : long);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_voidstar((void**)lget(&(sc->inputs), 1));
+			mut_long((long*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			write(	*(int*)lget(&(sc->inputs), 0),
+				*(void**)lget(&(sc->inputs), 1),
+				*(long*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_writev :		//	writev(int : IOchunk* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			writev(	*(int*)lget(&(sc->inputs), 0),
+				*(IOchunk**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_wstat :			//	wstat(char* : uchar* : int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1));
+			mut_int((int*)lget(&(sc->inputs), 2));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			wstat(	*(char**)lget(&(sc->inputs), 0),
+				*(unsigned char**)lget(&(sc->inputs), 1),
+				*(int*)lget(&(sc->inputs), 2) );
+
+			break;
 		case sc_rendezvous :		//	rendezvous(void* : void*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_voidstar((void**)lget(&(sc->inputs), 0));
+			mut_voidstar((void**)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			rendezvous(	*(void**)lget(&(sc->inputs), 0),
+					*(void**)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_dirstat :		//	dirstat(char*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			dirstat( *(char**)lget(&(sc->inputs), 0) );
+
+			break;
 		case sc_dirfstat :		//	dirfstat(int);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			dirfstat(*(int*)lget(&(sc->inputs), 0));
+
+			break;
 		case sc_dirwstat :		//	dirwstat(char* : Dir*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_dirstar((Dir**)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			dirwstat(	*(char**)lget(&(sc->inputs), 0),
+					*(Dir**)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_dirfwstat :		//	dirfwstat(int : Dir*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_dirstar((Dir**)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			dirfwstat(	*(int*)lget(&(sc->inputs), 0),
+					*(Dir**)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_dirread :		//	dirread(int : Dir**);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_dirstar_star((Dir***)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			dirread(	*(int*)lget(&(sc->inputs), 0),
+					*(Dir***)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_nulldir :		//	nulldir(Dir*);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_dirstar((Dir**)lget(&(sc->inputs), 0));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			nulldir( *(Dir**)lget(&(sc->inputs), 0) );
+
+			break;
 		case sc_dirreadall :		//	dirreadall(int : Dir**);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_int((int*)lget(&(sc->inputs), 0));
+			mut_dirstar_star((Dir***)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			dirreadall(	*(int*)lget(&(sc->inputs), 0),
+					*(Dir***)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_getpid :		//	getpid(void);
+			// increment the round counter
+			(sc->round)++;
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			getpid();
+
+			break;
 		case sc_getppid	:		//	getppid(void);
+			// increment the round counter
+			(sc->round)++;
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			getppid();
+
+			break;
 		case sc_rerrstr :		//	rerrstr(char* : uint);
+			// increment the round counter
+			(sc->round)++;
+
+			// mutate the input
+			mut_charstar((char**)lget(&(sc->inputs), 0));
+			mut_uint((uint*)lget(&(sc->inputs), 1));
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			rerrstr(*(char**)lget(&(sc->inputs), 0),
+				*(uint*)lget(&(sc->inputs), 1) );
+
+			break;
 		case sc_sysname :		//	sysname(void);
+			// increment the round counter
+			(sc->round)++;
+
+			// log the variables
+			log_call(sc);
+
+			// sync the disk
+			hjsync();
+			
+			// execute the call
+			sysname();
+
+			break;
 		case sc_werrstr :		//	werrstr(char* : ...);
+			//TODO - not sure what to do with variable # of parameters
+			exits("SYSCALL NOT IMPLEMENTED");
+			break;
 		default :
 			exits("Unknown system call!");
 	}
