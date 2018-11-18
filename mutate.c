@@ -12,12 +12,12 @@ mut_uint(unsigned int* in_val)
 }
 
 void
-mut_charstar(char* in_val)
+mut_charstar(char** in_val)
 {
 }
 
 void
-mut_ucharstar(unsigned char* in_val)
+mut_ucharstar(unsigned char** in_val)
 {
 }
 
