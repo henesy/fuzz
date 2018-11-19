@@ -4,12 +4,16 @@
 void
 fuzz(caller *sc)
 {
+
+	// seed srand from current seed
+	srand(sc->seed);
+
+	// increment the round counter
+	(sc->round)++;
+
 	// TODO
 	switch(sc->c) {
 		case sc_exits :			//	_exits(char*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 
@@ -24,9 +28,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_abort :			//	abort(void);
-			// increment the round counter
-			(sc->round)++;
-
 			// log the variables
 			log_call(sc);
 
@@ -38,9 +39,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_access :		//	access(char* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_int((int*)lget(&(sc->inputs), 1));
@@ -57,9 +55,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_alarm :			//	alarm(ulong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_ulong((ulong*)lget(&(sc->inputs), 0));
 
@@ -74,9 +69,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_await :			//	await(char* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_int((int*)lget(&(sc->inputs), 1));
@@ -93,9 +85,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_bind :			//	bind(char* : char* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_charstar((char**)lget(&(sc->inputs), 1));
@@ -114,10 +103,8 @@ fuzz(caller *sc)
 
 			break;
 		case sc_brk :			//	brk(void*);
+			break;
 		case sc_chdir :			//	chdir(char*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 
@@ -132,9 +119,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_close :			//	close(int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 
@@ -149,9 +133,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_create :		//	create(char* : int : ulong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_int((int*)lget(&(sc->inputs), 1));
@@ -170,9 +151,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_dup :			//	dup(int : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_int((int*)lget(&(sc->inputs), 1));
@@ -189,9 +167,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_errstr :		//	errstr(char* : uint);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_uint((uint*)lget(&(sc->inputs), 1));
@@ -216,9 +191,6 @@ fuzz(caller *sc)
 			exits("SYSCALL NOT IMPLEMENTED");
 			break;
 		case sc_fork :			//	fork(void);
-			// increment the round counter
-			(sc->round)++;
-
 			// log the variables
 			log_call(sc);
 
@@ -230,9 +202,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_rfork :			//	rfork(int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 
@@ -247,9 +216,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_fauth :			//	fauth(int : char*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_charstar((char**)lget(&(sc->inputs), 1));
@@ -266,9 +232,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_fstat :			//	fstat(int : uchar* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1));
@@ -287,9 +250,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_fwstat :		//	fwstat(int : uchar* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1));
@@ -308,9 +268,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_fversion :		//	fversion(int : int : char* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_int((int*)lget(&(sc->inputs), 1));
@@ -331,9 +288,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_mount :			//	mount(int : int : char* : int : char*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_int((int*)lget(&(sc->inputs), 1));
@@ -356,9 +310,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_unmount :		//	unmount(char* : char*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_charstar((char**)lget(&(sc->inputs), 1));
@@ -375,9 +326,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_noted :			//	noted(int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 
@@ -396,9 +344,6 @@ fuzz(caller *sc)
 			exits("SYSCALL NOT IMPLEMENTED");
 			break;
 		case sc_open :			//	open(char* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_int((int*)lget(&(sc->inputs), 1));
@@ -415,9 +360,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_fd2path :		//	fd2path(int : char* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_charstar((char**)lget(&(sc->inputs), 1));
@@ -440,9 +382,6 @@ fuzz(caller *sc)
 			exits("SYSCALL NOT IMPLEMENTED");
 			break;
 		case sc_pread :			//	pread(int : void* : long : vlong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_voidstar((void**)lget(&(sc->inputs), 1));
@@ -463,9 +402,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_preadv :		//	preadv(int : IOchunk* : int : vlong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1));
@@ -486,9 +422,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_pwrite :		//	pwrite(int : void* : long : vlong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_voidstar((void**)lget(&(sc->inputs), 1));
@@ -509,9 +442,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_pwritev :		//	pwritev(int : IOchunk* : int : vlong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1));
@@ -532,9 +462,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_read :			//	read(int : void* : long);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_voidstar((void**)lget(&(sc->inputs), 1));
@@ -553,9 +480,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_readn :			//	readn(int : void* : long);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_voidstar((void**)lget(&(sc->inputs), 1));
@@ -574,9 +498,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_readv :			//	readv(int : IOchunk* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1));
@@ -595,9 +516,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_remove :		//	remove(char*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 
@@ -612,9 +530,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_sbrk :			//	sbrk(ulong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_ulong((ulong*)lget(&(sc->inputs), 0));
 
@@ -629,9 +544,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_oseek :			//	oseek(int : long : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_long((long*)lget(&(sc->inputs), 1));
@@ -650,9 +562,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_seek :			//	seek(int : vlong : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_vlong((long long*)lget(&(sc->inputs), 1));
@@ -671,9 +580,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_segattach :		//	segattach(int : char* : void* : ulong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_charstar((char**)lget(&(sc->inputs), 1));
@@ -694,9 +600,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_segbrk	 :		//	segbrk(void* : void*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_voidstar((void**)lget(&(sc->inputs), 0));
 			mut_voidstar((void**)lget(&(sc->inputs), 1));
@@ -713,9 +616,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_segdetach :		//	segdetach(void*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_voidstar((void**)lget(&(sc->inputs), 0));
 
@@ -730,9 +630,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_segflush :		//	segflush(void* : ulong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_voidstar((void**)lget(&(sc->inputs), 0));
 			mut_ulong((unsigned long*)lget(&(sc->inputs), 1));
@@ -749,9 +646,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_segfree :		//	segfree(void* : ulong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_voidstar((void**)lget(&(sc->inputs), 0));
 			mut_ulong((unsigned long*)lget(&(sc->inputs), 1));
@@ -768,9 +662,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_semacquire :		//	semacquire(long* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_longstar((long**)lget(&(sc->inputs), 0));
 			mut_int((int*)lget(&(sc->inputs), 1));
@@ -787,9 +678,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_semrelease :		//	semrelease(long* : long);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_longstar((long**)lget(&(sc->inputs), 0));
 			mut_long((long*)lget(&(sc->inputs), 1));
@@ -806,9 +694,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_sleep :			//	sleep(long);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_long((long*)lget(&(sc->inputs), 0));
 
@@ -823,9 +708,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_stat :			//	stat(char* : uchar* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1));
@@ -844,9 +726,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_tsemacquire :		//	tsemacquire(long* : ulong);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_longstar((long**)lget(&(sc->inputs), 0));
 			mut_ulong((ulong*)lget(&(sc->inputs), 1));
@@ -863,9 +742,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_wait :			//	wait(void);
-			// increment the round counter
-			(sc->round)++;
-
 			// log the variables
 			log_call(sc);
 
@@ -877,9 +753,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_waitpid :		//	waitpid(void);
-			// increment the round counter
-			(sc->round)++;
-
 			// log the variables
 			log_call(sc);
 
@@ -891,9 +764,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_write :			//	write(int : void* : long);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_voidstar((void**)lget(&(sc->inputs), 1));
@@ -912,9 +782,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_writev :		//	writev(int : IOchunk* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1));
@@ -933,9 +800,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_wstat :			//	wstat(char* : uchar* : int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1));
@@ -954,9 +818,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_rendezvous :		//	rendezvous(void* : void*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_voidstar((void**)lget(&(sc->inputs), 0));
 			mut_voidstar((void**)lget(&(sc->inputs), 1));
@@ -973,9 +834,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_dirstat :		//	dirstat(char*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 
@@ -990,9 +848,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_dirfstat :		//	dirfstat(int);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 
@@ -1007,9 +862,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_dirwstat :		//	dirwstat(char* : Dir*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_dirstar((Dir**)lget(&(sc->inputs), 1));
@@ -1026,9 +878,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_dirfwstat :		//	dirfwstat(int : Dir*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_dirstar((Dir**)lget(&(sc->inputs), 1));
@@ -1045,9 +894,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_dirread :		//	dirread(int : Dir**);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_dirstar_star((Dir***)lget(&(sc->inputs), 1));
@@ -1064,9 +910,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_nulldir :		//	nulldir(Dir*);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_dirstar((Dir**)lget(&(sc->inputs), 0));
 
@@ -1081,9 +924,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_dirreadall :		//	dirreadall(int : Dir**);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_int((int*)lget(&(sc->inputs), 0));
 			mut_dirstar_star((Dir***)lget(&(sc->inputs), 1));
@@ -1100,9 +940,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_getpid :		//	getpid(void);
-			// increment the round counter
-			(sc->round)++;
-
 			// log the variables
 			log_call(sc);
 
@@ -1114,9 +951,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_getppid	:		//	getppid(void);
-			// increment the round counter
-			(sc->round)++;
-
 			// log the variables
 			log_call(sc);
 
@@ -1128,9 +962,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_rerrstr :		//	rerrstr(char* : uint);
-			// increment the round counter
-			(sc->round)++;
-
 			// mutate the input
 			mut_charstar((char**)lget(&(sc->inputs), 0));
 			mut_uint((uint*)lget(&(sc->inputs), 1));
@@ -1147,9 +978,6 @@ fuzz(caller *sc)
 
 			break;
 		case sc_sysname :		//	sysname(void);
-			// increment the round counter
-			(sc->round)++;
-
 			// log the variables
 			log_call(sc);
 
@@ -1175,7 +1003,6 @@ log_call(caller *sc)
 {
 	fprint(logfd, "\nSystem Call: %s", sc->name);
 	fprint(logfd, "\n\tRound #: %d", sc->round);
-	fprint(logfd, "\n\tSeed: %d", sc->seed);
 
 	int x;
 	for (x = 0; x < (sc->inputs.size); x++) {
@@ -1206,10 +1033,10 @@ log_call(caller *sc)
 				fprint(logfd, "%s", (Dir*) ele->var);
 				break;
 			case t_charS :
-				fprint(logfd, "%s", (char*) ele->var);
+				fprint(logfd, "%s", (char**) ele->var);
 				break;
 			case t_charSArr :
-				//fprint(logfd, "%s", (char*) ele->var);
+				//fprint(logfd, "%s", (char**) ele->var);
 				break;
 			case t_char :
 				fprint(logfd, "%c", *(char*) ele->var);
