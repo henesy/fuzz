@@ -7,7 +7,7 @@ void mk_int(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(int));
-    *tt->var = 0;
+    *(int *)tt->var = 0;
     tt->t = t_int;
 
     ladd(l, tt);
@@ -16,7 +16,7 @@ void mk_int(List *l)
 void mk_intS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    *tt->var = nil;
+    tt->var = nil;
     tt->t = t_intS;
 
     ladd(l, tt);
@@ -26,7 +26,7 @@ void mk_uint(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(unsigned int));
-    *tt->var = 0;
+    *(unsigned int *)tt->var = 0;
     tt->t = t_uint;
 
     ladd(l, tt);
@@ -35,7 +35,7 @@ void mk_uint(List *l)
 void mk_IOchunkS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    *tt->var = nil;
+    tt->var = nil;
     tt->t = t_IOchunkS;
 
     ladd(l, tt);
@@ -45,7 +45,7 @@ void mk_long(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(long));
-    *tt->var = 0;
+    *(long *)tt->var = 0;
     tt->t = t_long;
 
     ladd(l, tt);
@@ -54,7 +54,7 @@ void mk_long(List *l)
 void mk_longS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    *tt->var = nil;
+    tt->var = nil;
     tt->t = t_longS;
 
     ladd(l, tt);
@@ -64,7 +64,7 @@ void mk_ulong(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(unsigned long));
-    *tt->var = 0;
+    *(unsigned long *)tt->var = 0;
     tt->t = t_ulong;
 
     ladd(l, tt);
@@ -74,7 +74,7 @@ void mk_vlong(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(long long));
-    *tt->var = 0;
+    *(long long *)tt->var = 0;
     tt->t = t_vlong;
 
     ladd(l, tt);
@@ -83,7 +83,7 @@ void mk_vlong(List *l)
 void mk_DirS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    *tt->var = nil;
+    tt->var = nil;
     tt->t = t_DirS;
 
     ladd(l, tt);
@@ -92,7 +92,7 @@ void mk_DirS(List *l)
 void mk_DirSS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    *tt->var = nil;
+    tt->var = nil;
     tt->t = t_DirSS;
 
     ladd(l, tt);
@@ -102,7 +102,7 @@ void mk_char(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(char));
-    *tt->var = '\n';
+    *(char *)tt->var = '\n';
     tt->t = t_char;
 
     ladd(l, tt);
@@ -112,7 +112,7 @@ void mk_uchar(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(unsigned char));
-    *tt->var = '\n';
+    *(unsigned char *)tt->var = '\n';
     tt->t = t_uchar;
 
     ladd(l, tt);
@@ -121,7 +121,7 @@ void mk_uchar(List *l)
 void mk_ucharS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    *tt->var = nil;
+    tt->var = nil;
     tt->t = t_ucharS;
 
     ladd(l, tt);
@@ -130,7 +130,7 @@ void mk_ucharS(List *l)
 void mk_charS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    *tt->var = nil;
+    tt->var = nil;
     tt->t = t_charS;
 
     ladd(l, tt);
@@ -148,7 +148,7 @@ void mk_void(List *l)
 void mk_voidS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    *tt->var = nil;
+    tt->var = nil;
     tt->t = t_voidS;
 
     ladd(l, tt);
