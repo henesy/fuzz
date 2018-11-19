@@ -1,6 +1,9 @@
 #ifndef MUT_H
 #define MUT_H
 
+// Removed since we don't know the size of void pointer val, can't shift val
+//void shift_val(void*);
+
 void mut_int(int*);
 
 void mut_uint(uint*);
