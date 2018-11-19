@@ -13,7 +13,7 @@
 // Global variables
 extern int logfd;
 
-/* 
+/*
 For full list of syscalls:
 
 If systab doesn't exist, do: cd /sys/src/9/port && mk
@@ -25,7 +25,6 @@ If systab doesn't exist, do: cd /sys/src/9/port && mk
 // User space syscall definitions as per libc.h with sc_ prefix added
 typedef int call;
 enum call {
-sc_exits	,	//	_exits(char*);
 sc_abort	,	//	abort(void);
 sc_access	,	//	access(char*, int);
 sc_alarm	,	//	alarm(ulong);
@@ -39,6 +38,7 @@ sc_dup	,		//	dup(int, int);
 sc_errstr	,	//	errstr(char*, uint);
 sc_exec	,		//	exec(char*, char*[]);
 sc_execl	,	//	execl(char*, ...);
+sc_exits	,	//	_exits(char*);
 sc_fork	,		//	fork(void);
 sc_rfork	,	//	rfork(int);
 sc_fauth	,	//	fauth(int, char*);
@@ -96,19 +96,23 @@ sc_werrstr		//	werrstr(char*, ...);
 // Enum to track types of inputs
 typedef int type;
 enum type {
-t_int,
-t_uint,
-t_IOchunkS,
-t_long,
-t_ulong,
-t_vlong,
-t_longS,
-t_DirS,
-t_DirSS,
-t_char,
-t_uchar,
-t_charS,
-t_charSArr
+t_int,          // int
+t_intS,         // int pointer
+t_uint,         // unsigned int
+t_IOchunkS,     // IOChunkS pointer
+t_long,         // long
+t_longS,        // long pointer
+t_ulong,        // unsigned long
+t_vlong,        // long long
+t_DirS,         // directory pointer
+t_DirSS,        // director pointer to string of chars
+t_char,         // char
+t_uchar,        // unsigned char
+t_ucharS,       // unsigned char pointer
+t_charS,        // string
+t_charSArr,     // char pointer array
+t_void,         // void type
+t_voidS         // void pointer type
 };
 
 // Structure to track an instance of a given type
