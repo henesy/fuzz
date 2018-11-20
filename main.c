@@ -38,8 +38,11 @@ main(int argc, char *argv[])
 	// Acquire a list of calls specified by spaces (fuzz -n 1 read write seek)
 	for(;*argv;argv++){
 		int index;
-		if(index = name2index(*argv) > 0){
-			print("Loading call: %s\n", *argv);
+		if((index = name2index(*argv)) > 0){
+			#ifdef DEBUG 
+			print("DEBUG index: %d\n", index);
+			#endif
+			fprint(logfd, "Loading call: %s\n", *argv);
 			ladd(&tofuzz, &syscalls[index]); // Might be dangerous, pls fix
 		}else{
 			print("Error: Invalid system call: %s\n", *argv);
@@ -47,14 +50,27 @@ main(int argc, char *argv[])
 		}
 	}
 	
-	logfd = open("./fuzz.log", OWRITE);
+	logfd = create("./fuzz.log", OWRITE, 0777);
+	if(logfd < 0){
+		fprint(2, "Error: Failed to create/open log file.");
+		exits("log file create fail");
+	}
 	
 	// Operate for the desired number of rounds, -1 is infinite
 	for(i = 0; i < nrounds || nrounds < 0; i++){
 		int j;
+		fprint(logfd, "== Begin round %d ==\n", i);
 		for(j = 0; j < tofuzz.size; j++){
-			// <Log here>
-			fuzz((caller*)lget(&tofuzz, j)); // Fuzz (this syncs the disk)
+			caller *fcall = (caller*) lget(&tofuzz, j);
+			fprint(logfd, "­­ Fuzzing: %s ­­\n", fcall->name);
+			
+			// Someone in here is calling exits inappropriately so forking.
+			int pid = rfork(RFFDG|RFREND|RFPROC|RFMEM);
+			if(pid == 0){
+				// Child
+				fuzz(fcall); // Fuzz, syncs the disk
+				exits(nil);
+			}
 		}
 	}
 
@@ -82,8 +98,12 @@ int
 name2index(char* name)
 {
 	int i;
-	for(i = 0; i < NCALLS; i++)
+	for(i = 0; i < NCALLS; i++){
+		#ifdef DEBUG
+		print("DEBUG cmp %s to %s on %d\n", syscalls[i].name, name, i);
+		#endif
 		if(strcmp(syscalls[i].name, name) == 0)
 			return i;
+	}
 	return -1;
 }
