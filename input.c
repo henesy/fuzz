@@ -28,6 +28,8 @@ fuzz(caller *sc)
 
 			break;
 		case sc_abort :			//	abort(void);
+			fprint(logfd, "!! Someone called abort, don't do that.\n");
+			/* NOPE
 			// log the variables
 			log_call(sc);
 
@@ -36,6 +38,7 @@ fuzz(caller *sc)
 			
 			// execute the call
 			abort();
+			*/
 
 			break;
 		case sc_access :		//	access(char* : int);
@@ -992,8 +995,8 @@ fuzz(caller *sc)
 			//TODO - not sure what to do with variable # of parameters
 			exits("SYSCALL NOT IMPLEMENTED");
 			break;
-		default :
-			exits("Unknown system call!");
+		default:
+			exits("Unknown system call");
 	}
 }
 
@@ -1001,8 +1004,8 @@ fuzz(caller *sc)
 void
 log_call(caller *sc)
 {
-	fprint(logfd, "\nSystem Call: %s", sc->name);
-	fprint(logfd, "\n\tRound #: %d", sc->round);
+	fprint(logfd, "\nSystem Call: %s\n", sc->name);
+	fprint(logfd, "\n\tRound #: %d\n", sc->round);
 
 	int x;
 	for (x = 0; x < (sc->inputs.size); x++) {
@@ -1021,7 +1024,7 @@ log_call(caller *sc)
 				fprint(logfd, "%ld", *(long*) ele->var);
 				break;
 			case t_ulong :
-				fprint(logfd, "%lu", *(unsigned long*) ele->var);
+				fprint(logfd, "%lud", *(unsigned long*) ele->var);
 				break;
 			case t_vlong :
 				fprint(logfd, "%lld", *(long long*) ele->var);
@@ -1030,10 +1033,11 @@ log_call(caller *sc)
 				fprint(logfd, "%ld", *(long*) ele->var);
 				break;
 			case t_DirS :  //TODO : verify that this works; compiler warns against
-				fprint(logfd, "%s", (Dir*) ele->var);
+				// fprint(logfd, "%s", (Dir*) ele->var);
 				break;
 			case t_charS :
-				fprint(logfd, "%s", (char**) ele->var);
+				// TODO -- segfaults
+				// fprint(logfd, "%s", *(char**) ele->var);
 				break;
 			case t_charSArr :
 				//fprint(logfd, "%s", (char**) ele->var);
@@ -1047,6 +1051,7 @@ log_call(caller *sc)
 			default :
 				exits("Unknown input variable type!");
 		}
+		fprint(logfd, "\n");
 	}
 }
 
