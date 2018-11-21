@@ -11,7 +11,8 @@
 #define NTYPES 4
 
 // Global variables
-extern int logfd;
+extern	int		logfd;
+extern	Lock	loglck;
 
 /*
 For full list of syscalls:
@@ -157,5 +158,8 @@ List*	mkinlist(List*, call);
 // list.c → See list.h
 
 // mutate.c → See mutate.h
+
+// main.c
+void dolog(char*, ...);
 
 #endif
