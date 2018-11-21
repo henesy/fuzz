@@ -28,7 +28,7 @@ fuzz(caller *sc)
 
 			break;
 		case sc_abort :			//	abort(void);
-			fprint(logfd, "!! Someone called abort, don't do that.\n");
+			dolog("!! Someone called abort, don't do that.\n");
 			/* NOPE
 			// log the variables
 			log_call(sc);
@@ -1004,54 +1004,54 @@ fuzz(caller *sc)
 void
 log_call(caller *sc)
 {
-	fprint(logfd, "\nSystem Call: %s\n", sc->name);
-	fprint(logfd, "\n\tRound #: %d\n", sc->round);
+	dolog("\nSystem Call: %s\n", sc->name);
+	dolog("\n\tRound #: %d\n", sc->round);
 
 	int x;
 	for (x = 0; x < (sc->inputs.size); x++) {
 		t_type* ele = lget(&(sc->inputs), x);
 
-		fprint(logfd, "\n\t\t%s : ", callnames[ele->t]);
+		dolog("\n\t\t%s : ", callnames[ele->t]);
 		
 		switch(ele->t) {
 			case t_int :
-				fprint(logfd, "%d", *(int*) ele->var);
+				dolog("%d", *(int*) ele->var);
 				break;
 			case t_uint :
-				fprint(logfd, "%d", *(unsigned int*) ele->var);
+				dolog("%d", *(unsigned int*) ele->var);
 				break;
 			case t_long :
-				fprint(logfd, "%ld", *(long*) ele->var);
+				dolog("%ld", *(long*) ele->var);
 				break;
 			case t_ulong :
-				fprint(logfd, "%lud", *(unsigned long*) ele->var);
+				dolog("%lud", *(unsigned long*) ele->var);
 				break;
 			case t_vlong :
-				fprint(logfd, "%lld", *(long long*) ele->var);
+				dolog("%lld", *(long long*) ele->var);
 				break;
 			case t_longS :
-				fprint(logfd, "%ld", *(long*) ele->var);
+				dolog("%ld", *(long*) ele->var);
 				break;
 			case t_DirS :  //TODO : verify that this works; compiler warns against
-				// fprint(logfd, "%s", (Dir*) ele->var);
+				// dolog("%s", (Dir*) ele->var);
 				break;
 			case t_charS :
 				// TODO -- segfaults
-				// fprint(logfd, "%s", *(char**) ele->var);
+				// dolog("%s", *(char**) ele->var);
 				break;
 			case t_charSArr :
-				//fprint(logfd, "%s", (char**) ele->var);
+				//dolog("%s", (char**) ele->var);
 				break;
 			case t_char :
-				fprint(logfd, "%c", *(char*) ele->var);
+				dolog("%c", *(char*) ele->var);
 				break;
 			case t_uchar :
-				fprint(logfd, "%c", *(unsigned char*) ele->var);
+				dolog("%c", *(unsigned char*) ele->var);
 				break;
 			default :
 				exits("Unknown input variable type!");
 		}
-		fprint(logfd, "\n");
+		dolog("\n");
 	}
 }
 

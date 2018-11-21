@@ -1,7 +1,8 @@
 #include "fuzz.h"
 
 // Global variables are bad
-int logfd = -1; // fd of the log file, initialized in main
+int		logfd = -1; // fd of the log file, initialized in main
+Lock	loglck;		// Lock for logger
 
 // Commandline usage warning
 void
@@ -9,6 +10,20 @@ usage(void)
 {
 	fprint(2, "usage: %s [-n rounds] calls\n", argv0);
 	exits("usage");
+}
+
+// Perform locked logging operation -- wraps print
+void
+dolog(char *fmt, ...)
+{
+	va_list args;
+	va_start(args, fmt);
+
+	lock(&loglck);
+	vfprint(logfd, fmt, args);
+	unlock(&loglck);
+
+	va_end(args);
 }
 
 /* Prototypes */
@@ -42,7 +57,7 @@ main(int argc, char *argv[])
 			#ifdef DEBUG 
 			print("DEBUG index: %d\n", index);
 			#endif
-			fprint(logfd, "Loading call: %s\n", *argv);
+			dolog("Loading call: %s\n", *argv);
 			ladd(&tofuzz, &syscalls[index]); // Might be dangerous, pls fix
 		}else{
 			print("Error: Invalid system call: %s\n", *argv);
@@ -59,10 +74,10 @@ main(int argc, char *argv[])
 	// Operate for the desired number of rounds, -1 is infinite
 	for(i = 0; i < nrounds || nrounds < 0; i++){
 		int j;
-		fprint(logfd, "== Begin round %d ==\n", i);
+		dolog("== Begin round %d ==\n", i);
 		for(j = 0; j < tofuzz.size; j++){
 			caller *fcall = (caller*) lget(&tofuzz, j);
-			fprint(logfd, "­­ Fuzzing: %s ­­\n", fcall->name);
+			dolog("­­ Fuzzing: %s ­­\n", fcall->name);
 			
 			// Someone in here is calling exits inappropriately so forking.
 			int pid = rfork(RFFDG|RFREND|RFPROC|RFMEM);
