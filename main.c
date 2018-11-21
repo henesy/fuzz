@@ -70,7 +70,12 @@ main(int argc, char *argv[])
 		fprint(2, "Error: Failed to create/open log file.");
 		exits("log file create fail");
 	}
-	
+
+	// save so we don't have two different time(0)'s
+	int fuzz_seed = time(0);
+	srand(fuzz_seed);
+	dolog("==Seed Value: %d==\n", fuzz_seed);
+
 	// Operate for the desired number of rounds, -1 is infinite
 	for(i = 0; i < nrounds || nrounds < 0; i++){
 		int j;
