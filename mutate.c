@@ -85,22 +85,13 @@ mut_ucharstar(unsigned char** in_val, int *round)
     }
 }
 
-/*
 int
-mut_charstar_arr(char*[]* in_val, int *round)
+mut_charstararr(char*** in_val, int *round)
 {
-    length = (rand() % (64 + 1 - 1) + 1);
-    if(*round == ROUND_NUM)
-    {
-        *in_val = rand();
-    }
-    else
-    {
-	int shifter = rand() % (4 + 1 - 0) + 0;
-	(*in_val) << shifter;
-    }
-    return length
-}*/
+    int length = (rand() % (64 + 1 - 1) + 1);
+
+    return length;
+}
 
 void
 mut_long(long* in_val, int *round)

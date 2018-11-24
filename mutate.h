@@ -1,9 +1,6 @@
 #ifndef MUT_H
 #define MUT_H
 
-// Removed since we don't know the size of void pointer val, can't shift val
-//void shift_val(void*, int*);
-
 void mut_int(int*, int*);
 
 void mut_intstar(int**, int*);
@@ -16,7 +13,7 @@ void mut_charstar(char**, int*);
 
 void mut_ucharstar(unsigned char**, int*);
 
-//int mut_char_star_arr(char*[]*, int*);
+int mut_charstararr(char***, int*);
 
 void mut_long(long*, int*);
 
