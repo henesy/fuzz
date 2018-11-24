@@ -6,6 +6,8 @@
 
 void mut_int(int*, int*);
 
+void mut_intstar(int**, int*);
+
 void mut_uint(uint*, int*);
 
 void mut_char(char*, int*);

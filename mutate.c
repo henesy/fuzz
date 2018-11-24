@@ -1,14 +1,5 @@
 #include "fuzz.h"
 
-/* Removed as can't shift a void pointer since unknown size, ask Sean
-void
-shift_val(void* in_val, int *round)
-{
-	int shifter = rand() % (4 + 1 - 0) + 0;
-	(*in_val) << shifter;
-}
-*/
-
 #ifndef ROUND_NUM
 #define ROUND_NUM 1
 #endif // ROUND_NUM
@@ -16,29 +7,47 @@ shift_val(void* in_val, int *round)
 void
 mut_int(int* in_val, int *round)
 {
-//    if(*round == ROUND_NUM)
-//    {
-//        *in_val = rand();
-//    }
-//    else
-//    {
+    if(*round == ROUND_NUM)
+    {
+	dolog("First seeding of rand\n");
+        *in_val = rand();
+    }
+    else
+    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-//    }
+    }
+}
+
+void
+mut_intstar(int** in_val, int* round)
+{
+	// TODO -- Sean sanity check plz
+	if(*round == ROUND_NUM)
+	{
+		in_val = (int**) malloc(sizeof(int*));
+		*in_val = (int*) malloc(sizeof(int));
+		**in_val = rand();
+	}
+	else
+	{
+	        (**in_val) << (rand() % (4 + 1 - 0) + 0);
+        	(**in_val) |= (rand() % (15 + 1 - 0) + 0);
+	}
 }
 
 void
 mut_uint(unsigned int* in_val, int *round)
 {
-//    if(*round == ROUND_NUM)
-//    {
-//        *in_val = rand();
-//    }
-//    else
-//    {
+    if(*round == ROUND_NUM)
+    {
+        *in_val = rand();
+    }
+    else
+    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-//    }
+    }
 }
 
 void
@@ -83,15 +92,15 @@ mut_charstar_arr(char*[]* in_val, int *round)
 void
 mut_long(long* in_val, int *round)
 {
-//    if(*round == ROUND_NUM)
-//    {
-//        //*in_val = rand();
-//    }
-//    else
-//    {
+    if(*round == ROUND_NUM)
+    {
+        *in_val = (rand() << 16) | rand();
+    }
+    else
+    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-//    }
+    }
 }
 
 void
@@ -99,39 +108,44 @@ mut_longstar(long** in_val, int *round)
 {
     if(*round == ROUND_NUM)
     {
-        //*in_val = rand();
+	// TODO -- check that this is correct
+	in_val = (long**) malloc(sizeof(long*));
+	*in_val = (long*) malloc(sizeof(long));
+	**in_val = (rand() << 16) | rand();
     }
     else
     {
+	(**in_val) << (rand() % (4 + 1 - 0) + 0);
+	(**in_val) |= (rand() % (15 + 1 - 0 ) + 0);
     }
 }
 
 void
 mut_ulong(unsigned long* in_val, int *round)
 {
-//    if(*round == ROUND_NUM)
-//    {
-//        //*in_val = rand();
-//    }
-//    else
-//    {
+    if(*round == ROUND_NUM)
+    {
+        *in_val = (rand() << 16) | rand();
+    }
+    else
+    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-//    }
+    }
 }
 
 void
 mut_vlong(long long* in_val, int *round)
 {
-//    if(*round == ROUND_NUM)
-//    {
-//        //*in_val = rand();
-//    }
-//    else
-//    {
+    if(*round == ROUND_NUM)
+    {
+        *in_val = (rand() << 48) | (rand() << 32) | (rand() << 16) | rand();
+    }
+    else
+    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-//    }
+    }
 }
 
 void

@@ -381,8 +381,14 @@ fuzz(caller *sc)
 
 			break;
 		case sc_pipe :			//	pipe(int*);
-			//TODO - this sc takes an int pointer, we don't have infrastructure for that
-			exits("SYSCALL NOT IMPLEMENTED");
+			mut_intstar((int**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+
+			log_call(sc);
+
+			hjsync();
+
+			pipe(*(int**)((t_type*)lget(&(sc->inputs), 0))->var);
+
 			break;
 		case sc_pread :			//	pread(int : void* : long : vlong);
 			// mutate the input
@@ -466,7 +472,7 @@ fuzz(caller *sc)
 			break;
 		case sc_read :			//	read(int : void* : long);
 			// mutate the input
-			mut_int((int*)((t_type*)((t_type*)lget(&(sc->inputs), 0))->var)->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 			mut_long((long*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
