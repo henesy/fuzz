@@ -44,6 +44,7 @@ mut_uint(unsigned int* in_val, int *round)
 void
 mut_charstar(char** in_val, int *round)
 {
+    dolog("Round: %d", *round);
     if(*round == ROUND_NUM)
     {
         //*in_val = rand();
