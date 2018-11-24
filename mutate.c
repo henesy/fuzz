@@ -16,30 +16,29 @@ shift_val(void* in_val, int *round)
 void
 mut_int(int* in_val, int *round)
 {
-    dolog("Round: %d", *round);
-    if(*round == ROUND_NUM)
-    {
-        *in_val = rand();
-    }
-    else
-    {
+//    if(*round == ROUND_NUM)
+//    {
+//        *in_val = rand();
+//    }
+//    else
+//    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-    }
+//    }
 }
 
 void
 mut_uint(unsigned int* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
-    {
-        *in_val = rand();
-    }
-    else
-    {
+//    if(*round == ROUND_NUM)
+//    {
+//        *in_val = rand();
+//    }
+//    else
+//    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-    }
+//    }
 }
 
 void
@@ -84,15 +83,15 @@ mut_charstar_arr(char*[]* in_val, int *round)
 void
 mut_long(long* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
-    {
-        //*in_val = rand();
-    }
-    else
-    {
+//    if(*round == ROUND_NUM)
+//    {
+//        //*in_val = rand();
+//    }
+//    else
+//    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-    }
+//    }
 }
 
 void
@@ -110,29 +109,29 @@ mut_longstar(long** in_val, int *round)
 void
 mut_ulong(unsigned long* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
-    {
-        //*in_val = rand();
-    }
-    else
-    {
+//    if(*round == ROUND_NUM)
+//    {
+//        //*in_val = rand();
+//    }
+//    else
+//    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-    }
+//    }
 }
 
 void
 mut_vlong(long long* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
-    {
-        //*in_val = rand();
-    }
-    else
-    {
+//    if(*round == ROUND_NUM)
+//    {
+//        //*in_val = rand();
+//    }
+//    else
+//    {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
-    }
+//    }
 }
 
 void
