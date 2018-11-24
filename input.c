@@ -1005,48 +1005,49 @@ void
 log_call(caller *sc)
 {
 	dolog("\nSystem Call: %s\n", sc->name);
-	dolog("\n\tRound #: %d\n", sc->round);
-
+	// legacy since this is printed elsewhere
+	//dolog("\n\tRound #: %d\n", sc->round);
+	dolog("Arguments:\n");
 	int x;
 	for (x = 0; x < (sc->inputs.size); x++) {
 		t_type* ele = lget(&(sc->inputs), x);
 
-		dolog("\n\t\t%s : ", callnames[ele->t]);
+		dolog("\t\t%s : ", callnames[ele->t]);
 		
 		switch(ele->t) {
 			case t_int :
-				dolog("%d", *(int*) ele->var);
+				dolog("t_int: %d\n", *(int*) ele->var);
 				break;
 			case t_uint :
-				dolog("%d", *(unsigned int*) ele->var);
+				dolog("t_uint: %d\n", *(unsigned int*) ele->var);
 				break;
 			case t_long :
-				dolog("%ld", *(long*) ele->var);
+				dolog("t_long: %ld\n", *(long*) ele->var);
 				break;
 			case t_ulong :
-				dolog("%lud", *(unsigned long*) ele->var);
+				dolog("t_ulong: %lud\n", *(unsigned long*) ele->var);
 				break;
 			case t_vlong :
-				dolog("%lld", *(long long*) ele->var);
+				dolog("t_vlong: %lld\n", *(long long*) ele->var);
 				break;
 			case t_longS :
-				dolog("%ld", *(long*) ele->var);
+				dolog("t_longS: %ld\n", *(long*) ele->var);
 				break;
 			case t_DirS :  //TODO : verify that this works; compiler warns against
-				// dolog("%s", (Dir*) ele->var);
+				// dolog("t_DirS: %s\n", (Dir*) ele->var);
 				break;
 			case t_charS :
 				// TODO -- segfaults
-				// dolog("%s", *(char**) ele->var);
+				// dolog("t_charS: %s\n", *(char**) ele->var);
 				break;
 			case t_charSArr :
-				//dolog("%s", (char**) ele->var);
+				//dolog("t_charSArr: %s\n", (char**) ele->var);
 				break;
 			case t_char :
-				dolog("%c", *(char*) ele->var);
+				dolog("t_char: %c\n", *(char*) ele->var);
 				break;
 			case t_uchar :
-				dolog("%c", *(unsigned char*) ele->var);
+				dolog("t_uchar: %c\n", *(unsigned char*) ele->var);
 				break;
 			default :
 				exits("Unknown input variable type!");
