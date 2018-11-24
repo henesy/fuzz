@@ -22,7 +22,6 @@ mut_int(int* in_val, int *round)
 //    }
 //    else
 //    {
-dolog("The value of round is: %d", *round);
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
 //    }
