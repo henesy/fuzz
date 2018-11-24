@@ -466,7 +466,7 @@ fuzz(caller *sc)
 			break;
 		case sc_read :			//	read(int : void* : long);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 			mut_voidstar((void**)lget(&(sc->inputs), 1), &sc->round);
 			mut_long((long*)lget(&(sc->inputs), 2), &sc->round);
 
