@@ -44,14 +44,23 @@ mut_uint(unsigned int* in_val, int *round)
 void
 mut_charstar(char** in_val, int *round)
 {
-    if(*round == ROUND_NUM)
-    {
-        //*in_val = rand();
-    }
-    else
-    {
+    // if not round 1, free the previously malloc-ed memory
+    if(*round != ROUND_NUM)
+        free(*in_val);
 
+    const int MAX_SIZE = 1024;
+    int size = rand() % MAX_SIZE + 1;
+
+    *in_val = malloc(sizeof(char) * size);
+
+    int i;
+    for(i=0; i < size); i++)
+    {
+        (*ptrStr)[i] = 'b';
     }
+    (*ptrStr)[size - 1] = '\0';
+
+    dolog("%s\n", *in_val);
 }
 
 void
