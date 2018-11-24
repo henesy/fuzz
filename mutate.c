@@ -17,6 +17,7 @@ void
 mut_int(int* in_val, int *round)
 {
     dolog("Round: %d", *round);
+    dolog("ROUND_NUM: %d", ROUND_NUM);
     if(*round == ROUND_NUM)
     {
         *in_val = rand();
