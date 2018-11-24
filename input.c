@@ -15,7 +15,7 @@ fuzz(caller *sc)
 	switch(sc->c) {
 		case sc_exits :			//	_exits(char*);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -24,7 +24,7 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			exits( *(char**)lget(&(sc->inputs), 0) );
+			exits( *(char**)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_abort :			//	abort(void);
@@ -43,8 +43,8 @@ fuzz(caller *sc)
 			break;
 		case sc_access :		//	access(char* : int);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 1), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -53,13 +53,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			access(	*(char**)lget(&(sc->inputs), 0),
-				*(int*)lget(&(sc->inputs), 1) );
+			access(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_alarm :			//	alarm(ulong);
 			// mutate the input
-			mut_ulong((ulong*)lget(&(sc->inputs), 0), &sc->round);
+			mut_ulong((ulong*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -68,13 +68,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			alarm( *(ulong*)lget(&(sc->inputs), 0) );
+			alarm( *(ulong*)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_await :			//	await(char* : int);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 1), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -83,15 +83,15 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			await(	*(char**)lget(&(sc->inputs), 0),
-				*(int*)lget(&(sc->inputs), 1) );
+			await(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_bind :			//	bind(char* : char* : int);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_charstar((char**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -100,16 +100,16 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			bind(	*(char**)lget(&(sc->inputs), 0),
-				*(char**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			bind(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(char**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_brk :			//	brk(void*);
 			break;
 		case sc_chdir :			//	chdir(char*);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -118,12 +118,12 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			chdir( *(char**)lget(&(sc->inputs), 0) );
+			chdir( *(char**)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_close :			//	close(int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -132,14 +132,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			close(*(int*)lget(&(sc->inputs), 0));
+			close(*(int*)((t_type*)lget(&(sc->inputs), 0))->var);
 
 			break;
 		case sc_create :		//	create(char* : int : ulong);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 1), &sc->round);
-			mut_ulong((ulong*)lget(&(sc->inputs), 2), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_ulong((ulong*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -148,15 +148,15 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			create(	*(char**)lget(&(sc->inputs), 0),
-				*(int*)lget(&(sc->inputs), 1),
-				*(ulong*)lget(&(sc->inputs), 2) );
+			create(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(ulong*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_dup :			//	dup(int : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 1), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -165,14 +165,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			dup(	*(int*)lget(&(sc->inputs), 0),
-				*(int*)lget(&(sc->inputs), 1));
+			dup(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 1))->var);
 
 			break;
 		case sc_errstr :		//	errstr(char* : uint);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_uint((uint*)lget(&(sc->inputs), 1), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_uint((uint*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -181,8 +181,8 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			errstr(	*(char**)lget(&(sc->inputs), 0),
-				*(uint*)lget(&(sc->inputs), 1) );
+			errstr(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(uint*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_exec :			//	exec(char* : char*[]);
@@ -206,7 +206,7 @@ fuzz(caller *sc)
 			break;
 		case sc_rfork :			//	rfork(int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -215,13 +215,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			rfork(*(int*)lget(&(sc->inputs), 0));
+			rfork(*(int*)((t_type*)lget(&(sc->inputs), 0))->var);
 
 			break;
 		case sc_fauth :			//	fauth(int : char*);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_charstar((char**)lget(&(sc->inputs), 1), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -230,15 +230,15 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			fauth(	*(int*)lget(&(sc->inputs), 0),
-				*(char**)lget(&(sc->inputs), 1) );
+			fauth(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(char**)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_fstat :			//	fstat(int : uchar* : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_ucharstar((unsigned char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -247,16 +247,16 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			fstat(	*(int*)lget(&(sc->inputs), 0),
-				*(unsigned char**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			fstat(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(unsigned char**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_fwstat :		//	fwstat(int : uchar* : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_ucharstar((unsigned char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -265,17 +265,17 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			fwstat(	*(int*)lget(&(sc->inputs), 0),
-				*(unsigned char**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			fwstat(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(unsigned char**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_fversion :		//	fversion(int : int : char* : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 1), &sc->round);
-			mut_charstar((char**)lget(&(sc->inputs), 2), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 3), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 3))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -284,19 +284,19 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			fversion(	*(int*)lget(&(sc->inputs), 0),
-					*(int*)lget(&(sc->inputs), 1),
-					*(char**)lget(&(sc->inputs), 2),
-					*(int*)lget(&(sc->inputs), 3) );
+			fversion(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(int*)((t_type*)lget(&(sc->inputs), 1))->var,
+					*(char**)((t_type*)lget(&(sc->inputs), 2))->var,
+					*(int*)((t_type*)lget(&(sc->inputs), 3))->var );
 
 			break;
 		case sc_mount :			//	mount(int : int : char* : int : char*);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 1), &sc->round);
-			mut_charstar((char**)lget(&(sc->inputs), 2), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 3), &sc->round);
-			mut_charstar((char**)lget(&(sc->inputs), 4), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 3))->var, &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 4))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -305,17 +305,17 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			mount(	*(int*)lget(&(sc->inputs), 0),
-				*(int*)lget(&(sc->inputs), 1),
-				*(char**)lget(&(sc->inputs), 2),
-				*(int*)lget(&(sc->inputs), 3),
-				*(char**)lget(&(sc->inputs), 4) );
+			mount(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(char**)((t_type*)lget(&(sc->inputs), 2))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 3))->var,
+				*(char**)((t_type*)lget(&(sc->inputs), 4))->var );
 
 			break;
 		case sc_unmount :		//	unmount(char* : char*);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_charstar((char**)lget(&(sc->inputs), 1), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -324,13 +324,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			unmount(*(char**)lget(&(sc->inputs), 0),
-				*(char**)lget(&(sc->inputs), 1) );
+			unmount(*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(char**)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_noted :			//	noted(int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -339,7 +339,7 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			noted(*(int*)lget(&(sc->inputs), 0));
+			noted(*(int*)((t_type*)lget(&(sc->inputs), 0))->var);
 
 			break;
 		case sc_notify :		//	notify(void(*)(void* : char*));
@@ -348,8 +348,8 @@ fuzz(caller *sc)
 			break;
 		case sc_open :			//	open(char* : int);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 1), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -358,15 +358,15 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			open(	*(char**)lget(&(sc->inputs), 0),
-				*(int*)lget(&(sc->inputs), 1) );
+			open(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_fd2path :		//	fd2path(int : char* : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_charstar((char**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -375,9 +375,9 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			fd2path(*(int*)lget(&(sc->inputs), 0),
-				*(char**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			fd2path(*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(char**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_pipe :			//	pipe(int*);
@@ -386,10 +386,10 @@ fuzz(caller *sc)
 			break;
 		case sc_pread :			//	pread(int : void* : long : vlong);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_voidstar((void**)lget(&(sc->inputs), 1), &sc->round);
-			mut_long((long*)lget(&(sc->inputs), 2), &sc->round);
-			mut_vlong((long long*)lget(&(sc->inputs), 3), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_long((long*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
+			mut_vlong((long long*)((t_type*)lget(&(sc->inputs), 3))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -398,18 +398,18 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			pread(	*(int*)lget(&(sc->inputs), 0),
-				*(void**)lget(&(sc->inputs), 1),
-				*(long*)lget(&(sc->inputs), 2),
-				*(long long*)lget(&(sc->inputs), 3) );
+			pread(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(void**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(long*)((t_type*)lget(&(sc->inputs), 2))->var,
+				*(long long*)((t_type*)lget(&(sc->inputs), 3))->var );
 
 			break;
 		case sc_preadv :		//	preadv(int : IOchunk* : int : vlong);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
-			mut_vlong((long long*)lget(&(sc->inputs), 3), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_IOchunkstar((IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
+			mut_vlong((long long*)((t_type*)lget(&(sc->inputs), 3))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -418,18 +418,18 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			preadv(	*(int*)lget(&(sc->inputs), 0),
-				*(IOchunk**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2),
-				*(long long*)lget(&(sc->inputs), 3) );
+			preadv(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var,
+				*(long long*)((t_type*)lget(&(sc->inputs), 3))->var );
 
 			break;
 		case sc_pwrite :		//	pwrite(int : void* : long : vlong);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_voidstar((void**)lget(&(sc->inputs), 1), &sc->round);
-			mut_long((long*)lget(&(sc->inputs), 2), &sc->round);
-			mut_vlong((long long*)lget(&(sc->inputs), 3), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_long((long*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
+			mut_vlong((long long*)((t_type*)lget(&(sc->inputs), 3))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -438,18 +438,18 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			pwrite(	*(int*)lget(&(sc->inputs), 0),
-				*(void**)lget(&(sc->inputs), 1),
-				*(long*)lget(&(sc->inputs), 2),
-				*(long long*)lget(&(sc->inputs), 3) );
+			pwrite(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(void**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(long*)((t_type*)lget(&(sc->inputs), 2))->var,
+				*(long long*)((t_type*)lget(&(sc->inputs), 3))->var );
 
 			break;
 		case sc_pwritev :		//	pwritev(int : IOchunk* : int : vlong);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
-			mut_vlong((long long*)lget(&(sc->inputs), 3), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_IOchunkstar((IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
+			mut_vlong((long long*)((t_type*)lget(&(sc->inputs), 3))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -458,17 +458,17 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			pwritev(*(int*)lget(&(sc->inputs), 0),
-				*(IOchunk**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2),
-				*(long long*)lget(&(sc->inputs), 3) );
+			pwritev(*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var,
+				*(long long*)((t_type*)lget(&(sc->inputs), 3))->var );
 
 			break;
 		case sc_read :			//	read(int : void* : long);
 			// mutate the input
-			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
-			mut_voidstar((void**)lget(&(sc->inputs), 1), &sc->round);
-			mut_long((long*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)((t_type*)lget(&(sc->inputs), 0))->var)->var, &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_long((long*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -477,16 +477,16 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			read(	*(int*)lget(&(sc->inputs), 0),
-				*(void**)lget(&(sc->inputs), 1),
-				*(long*)lget(&(sc->inputs), 2) );
+			read(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(void**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(long*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_readn :			//	readn(int : void* : long);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_voidstar((void**)lget(&(sc->inputs), 1), &sc->round);
-			mut_long((long*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_long((long*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -495,16 +495,16 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			readn(	*(int*)lget(&(sc->inputs), 0),
-				*(void**)lget(&(sc->inputs), 1),
-				*(long*)lget(&(sc->inputs), 2) );
+			readn(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(void**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(long*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_readv :			//	readv(int : IOchunk* : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_IOchunkstar((IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -513,14 +513,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			readv(	*(int*)lget(&(sc->inputs), 0),
-				*(IOchunk**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			readv(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_remove :		//	remove(char*);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -529,12 +529,12 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			remove( *(char**)lget(&(sc->inputs), 0) );
+			remove( *(char**)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_sbrk :			//	sbrk(ulong);
 			// mutate the input
-			mut_ulong((ulong*)lget(&(sc->inputs), 0), &sc->round);
+			mut_ulong((ulong*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -543,14 +543,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			sbrk( *(ulong*)lget(&(sc->inputs), 0) );
+			sbrk( *(ulong*)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_oseek :			//	oseek(int : long : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_long((long*)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_long((long*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -559,16 +559,16 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			oseek(	*(int*)lget(&(sc->inputs), 0),
-				*(long*)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			oseek(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(long*)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_seek :			//	seek(int : vlong : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_vlong((long long*)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_vlong((long long*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -577,17 +577,17 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			seek(	*(int*)lget(&(sc->inputs), 0),
-				*(long long*)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			seek(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(long long*)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_segattach :		//	segattach(int : char* : void* : ulong);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_charstar((char**)lget(&(sc->inputs), 1), &sc->round);
-			mut_voidstar((void**)lget(&(sc->inputs), 2), &sc->round);
-			mut_ulong((unsigned long*)lget(&(sc->inputs), 3), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
+			mut_ulong((unsigned long*)((t_type*)lget(&(sc->inputs), 3))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -596,16 +596,16 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			segattach(	*(int*)lget(&(sc->inputs), 0),
-					*(char**)lget(&(sc->inputs), 1),
-					*(void**)lget(&(sc->inputs), 2),
-					*(unsigned long*)lget(&(sc->inputs), 3) );
+			segattach(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(char**)((t_type*)lget(&(sc->inputs), 1))->var,
+					*(void**)((t_type*)lget(&(sc->inputs), 2))->var,
+					*(unsigned long*)((t_type*)lget(&(sc->inputs), 3))->var );
 
 			break;
 		case sc_segbrk	 :		//	segbrk(void* : void*);
 			// mutate the input
-			mut_voidstar((void**)lget(&(sc->inputs), 0), &sc->round);
-			mut_voidstar((void**)lget(&(sc->inputs), 1), &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -614,13 +614,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			segbrk(	*(void**)lget(&(sc->inputs), 0),
-				*(void**)lget(&(sc->inputs), 1) );
+			segbrk(	*(void**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(void**)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_segdetach :		//	segdetach(void*);
 			// mutate the input
-			mut_voidstar((void**)lget(&(sc->inputs), 0), &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -629,13 +629,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			segdetach( *(void**)lget(&(sc->inputs), 0) );
+			segdetach( *(void**)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_segflush :		//	segflush(void* : ulong);
 			// mutate the input
-			mut_voidstar((void**)lget(&(sc->inputs), 0), &sc->round);
-			mut_ulong((unsigned long*)lget(&(sc->inputs), 1), &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_ulong((unsigned long*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -644,14 +644,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			segflush(	*(void**)lget(&(sc->inputs), 0),
-					*(unsigned long*)lget(&(sc->inputs), 1) );
+			segflush(	*(void**)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(unsigned long*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_segfree :		//	segfree(void* : ulong);
 			// mutate the input
-			mut_voidstar((void**)lget(&(sc->inputs), 0), &sc->round);
-			mut_ulong((unsigned long*)lget(&(sc->inputs), 1), &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_ulong((unsigned long*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -660,14 +660,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			segfree(*(void**)lget(&(sc->inputs), 0),
-				*(unsigned long*)lget(&(sc->inputs), 1) );
+			segfree(*(void**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(unsigned long*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_semacquire :		//	semacquire(long* : int);
 			// mutate the input
-			mut_longstar((long**)lget(&(sc->inputs), 0), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 1), &sc->round);
+			mut_longstar((long**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -676,14 +676,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			semacquire(	*(long**)lget(&(sc->inputs), 0),
-					*(int*)lget(&(sc->inputs), 1) );
+			semacquire(	*(long**)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(int*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_semrelease :		//	semrelease(long* : long);
 			// mutate the input
-			mut_longstar((long**)lget(&(sc->inputs), 0), &sc->round);
-			mut_long((long*)lget(&(sc->inputs), 1), &sc->round);
+			mut_longstar((long**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_long((long*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -692,13 +692,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			semrelease(	*(long**)lget(&(sc->inputs), 0),
-					*(long*)lget(&(sc->inputs), 1) );
+			semrelease(	*(long**)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(long*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_sleep :			//	sleep(long);
 			// mutate the input
-			mut_long((long*)lget(&(sc->inputs), 0), &sc->round);
+			mut_long((long*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -707,14 +707,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			sleep( *(long*)lget(&(sc->inputs), 0) );
+			sleep( *(long*)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_stat :			//	stat(char* : uchar* : int);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_ucharstar((unsigned char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -723,15 +723,15 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			stat(	*(char**)lget(&(sc->inputs), 0),
-				*(unsigned char**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			stat(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(unsigned char**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_tsemacquire :		//	tsemacquire(long* : ulong);
 			// mutate the input
-			mut_longstar((long**)lget(&(sc->inputs), 0), &sc->round);
-			mut_ulong((ulong*)lget(&(sc->inputs), 1), &sc->round);
+			mut_longstar((long**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_ulong((ulong*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -740,8 +740,8 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			tsemacquire(	*(long**)lget(&(sc->inputs), 0),
-					*(ulong*)lget(&(sc->inputs), 1) );
+			tsemacquire(	*(long**)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(ulong*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_wait :			//	wait(void);
@@ -768,9 +768,9 @@ fuzz(caller *sc)
 			break;
 		case sc_write :			//	write(int : void* : long);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_voidstar((void**)lget(&(sc->inputs), 1), &sc->round);
-			mut_long((long*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_long((long*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -779,16 +779,16 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			write(	*(int*)lget(&(sc->inputs), 0),
-				*(void**)lget(&(sc->inputs), 1),
-				*(long*)lget(&(sc->inputs), 2) );
+			write(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(void**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(long*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_writev :		//	writev(int : IOchunk* : int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_IOchunkstar((IOchunk**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_IOchunkstar((IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -797,16 +797,16 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			writev(	*(int*)lget(&(sc->inputs), 0),
-				*(IOchunk**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			writev(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_wstat :			//	wstat(char* : uchar* : int);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_ucharstar((unsigned char**)lget(&(sc->inputs), 1), &sc->round);
-			mut_int((int*)lget(&(sc->inputs), 2), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_ucharstar((unsigned char**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -815,15 +815,15 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			wstat(	*(char**)lget(&(sc->inputs), 0),
-				*(unsigned char**)lget(&(sc->inputs), 1),
-				*(int*)lget(&(sc->inputs), 2) );
+			wstat(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(unsigned char**)((t_type*)lget(&(sc->inputs), 1))->var,
+				*(int*)((t_type*)lget(&(sc->inputs), 2))->var );
 
 			break;
 		case sc_rendezvous :		//	rendezvous(void* : void*);
 			// mutate the input
-			mut_voidstar((void**)lget(&(sc->inputs), 0), &sc->round);
-			mut_voidstar((void**)lget(&(sc->inputs), 1), &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_voidstar((void**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -832,13 +832,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			rendezvous(	*(void**)lget(&(sc->inputs), 0),
-					*(void**)lget(&(sc->inputs), 1) );
+			rendezvous(	*(void**)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(void**)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_dirstat :		//	dirstat(char*);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -847,12 +847,12 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			dirstat( *(char**)lget(&(sc->inputs), 0) );
+			dirstat( *(char**)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_dirfstat :		//	dirfstat(int);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -861,13 +861,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			dirfstat(*(int*)lget(&(sc->inputs), 0));
+			dirfstat(*(int*)((t_type*)lget(&(sc->inputs), 0))->var);
 
 			break;
 		case sc_dirwstat :		//	dirwstat(char* : Dir*);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_dirstar((Dir**)lget(&(sc->inputs), 1), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_dirstar((Dir**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -876,14 +876,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			dirwstat(	*(char**)lget(&(sc->inputs), 0),
-					*(Dir**)lget(&(sc->inputs), 1) );
+			dirwstat(	*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(Dir**)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_dirfwstat :		//	dirfwstat(int : Dir*);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_dirstar((Dir**)lget(&(sc->inputs), 1), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_dirstar((Dir**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -892,14 +892,14 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			dirfwstat(	*(int*)lget(&(sc->inputs), 0),
-					*(Dir**)lget(&(sc->inputs), 1) );
+			dirfwstat(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(Dir**)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_dirread :		//	dirread(int : Dir**);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_dirstar_star((Dir***)lget(&(sc->inputs), 1), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_dirstar_star((Dir***)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -908,13 +908,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			dirread(	*(int*)lget(&(sc->inputs), 0),
-					*(Dir***)lget(&(sc->inputs), 1) );
+			dirread(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(Dir***)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_nulldir :		//	nulldir(Dir*);
 			// mutate the input
-			mut_dirstar((Dir**)lget(&(sc->inputs), 0), &sc->round);
+			mut_dirstar((Dir**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -923,13 +923,13 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			nulldir( *(Dir**)lget(&(sc->inputs), 0) );
+			nulldir( *(Dir**)((t_type*)lget(&(sc->inputs), 0))->var );
 
 			break;
 		case sc_dirreadall :		//	dirreadall(int : Dir**);
 			// mutate the input
-			mut_int((int*)lget(&(sc->inputs), 0), &sc->round);
-			mut_dirstar_star((Dir***)lget(&(sc->inputs), 1), &sc->round);
+			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_dirstar_star((Dir***)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -938,8 +938,8 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			dirreadall(	*(int*)lget(&(sc->inputs), 0),
-					*(Dir***)lget(&(sc->inputs), 1) );
+			dirreadall(	*(int*)((t_type*)lget(&(sc->inputs), 0))->var,
+					*(Dir***)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_getpid :		//	getpid(void);
@@ -966,8 +966,8 @@ fuzz(caller *sc)
 			break;
 		case sc_rerrstr :		//	rerrstr(char* : uint);
 			// mutate the input
-			mut_charstar((char**)lget(&(sc->inputs), 0), &sc->round);
-			mut_uint((uint*)lget(&(sc->inputs), 1), &sc->round);
+			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			mut_uint((uint*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 
 			// log the variables
 			log_call(sc);
@@ -976,8 +976,8 @@ fuzz(caller *sc)
 			hjsync();
 
 			// execute the call
-			rerrstr(*(char**)lget(&(sc->inputs), 0),
-				*(uint*)lget(&(sc->inputs), 1) );
+			rerrstr(*(char**)((t_type*)lget(&(sc->inputs), 0))->var,
+				*(uint*)((t_type*)lget(&(sc->inputs), 1))->var );
 
 			break;
 		case sc_sysname :		//	sysname(void);
