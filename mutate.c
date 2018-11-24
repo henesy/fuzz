@@ -22,8 +22,10 @@ mut_int(int* in_val, int *round)
 //    }
 //    else
 //    {
+dolog("mut_int \'before\' round %d, value: %d", *round, *in_val);
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
+dolog("mut_int \'after\' round %d, value: %d", *round, *in_val);
 //    }
 }
 
@@ -89,8 +91,10 @@ mut_long(long* in_val, int *round)
 //    }
 //    else
 //    {
+dolog("mut_int \'before\' round %d, value: %d", *round, *in_val);
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
+dolog("mut_int \'after\' round %d, value: %d", *round, *in_val);
 //    }
 }
 
