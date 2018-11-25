@@ -70,7 +70,7 @@ mut_charstar(char** in_val, int *round)
     (*in_val)[size - 1] = '\0';
 
 
-    dolog("Value of in_val: %s\n", *in_val);
+    dolog("[mutate.c mut_charstar] Value of in_val: %s\n", *in_val);
 }
 
 void
