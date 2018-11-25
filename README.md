@@ -14,13 +14,21 @@ Theoretically fuzz could be ported to unix using [plan9port](https://github.com/
 
 	mk install
 
+## Building in debug mode
+
+	mk debug
+
 ## Usage
 
 To perform up to round 5 of fuzzing for the read, write, open, and close calls:
 
 	fuzz -n 5 read write open close
 
-## Recommended reading
+A list of all known system call names can be printed:
+
+	fuzz ?
+
+## Recommended reading for further development
 
 - http://doc.cat-v.org/plan_9/4th_edition/papers/comp
 - http://doc.cat-v.org/plan_9/programming/c_programming_in_plan_9
