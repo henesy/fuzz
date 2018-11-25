@@ -26,6 +26,20 @@ dolog(char *fmt, ...)
 	va_end(args);
 }
 
+// Perform a debug mode print (if built with -DDEBUG)
+void
+debug(char *fmt, ...)
+{
+	#ifdef DEBUG
+	va_list args;
+	va_start(args, fmt);
+
+	vfprint(1, fmt, args);
+
+	va_end(args);
+	#endif
+}
+
 /* Prototypes */
 void	initsctable(void);
 int		name2index(char*);
@@ -54,9 +68,9 @@ main(int argc, char *argv[])
 	for(;*argv;argv++){
 		int index;
 		if((index = name2index(*argv)) > 0){
-			#ifdef DEBUG 
-			print("DEBUG index: %d\n", index);
-			#endif
+		
+			debug("DEBUG index %d matched to \"%s\"\n", index, *argv);
+			
 			dolog("Loading call: %s\n", *argv);
 			ladd(&tofuzz, &syscalls[index]); // Might be dangerous, pls fix
 		}else{
@@ -80,23 +94,21 @@ main(int argc, char *argv[])
 	for(i = 0; i < nrounds || nrounds < 0; i++){
 		int j;
 		dolog("== Begin round %d ==\n", i);
+		
+		debug("DEBUG: i: %d nrounds: %d\n", i, nrounds);
+		
 		for(j = 0; j < tofuzz.size; j++){
+		
+			debug("DEBUG: tofuzz.size: %d\n", tofuzz.size);
+			
 			caller *fcall = (caller*) lget(&tofuzz, j);
 			dolog("­­ Fuzzing: %s ­­\n", fcall->name);
 			
 			fuzz(fcall); // Fuzz, syncs the disk
-			/*
-			// Someone in here is calling exits inappropriately so forking.
-			int pid = rfork(RFFDG|RFREND|RFPROC|RFMEM);
-			if(pid == 0){
-				// Child
-				fuzz(fcall); // Fuzz, syncs the disk
-				exits(nil);
-			}
-			*/
 		}	
 	}
 
+	fprint(2, "Fuzz ending…\n");
 	close(logfd);
 	exits(nil);
 }
@@ -122,9 +134,6 @@ name2index(char* name)
 {
 	int i;
 	for(i = 0; i < NCALLS; i++){
-		#ifdef DEBUG
-		print("DEBUG cmp %s to %s on %d\n", syscalls[i].name, name, i);
-		#endif
 		if(strcmp(syscalls[i].name, name) == 0)
 			return i;
 	}

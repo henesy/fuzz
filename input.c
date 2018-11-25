@@ -11,8 +11,10 @@ fuzz(caller *sc)
 	// increment the round counter
 	(sc->round)++;
 
+	debug("DEBUG: sc_c = %d\n", sc->c);
+
 	// TODO
-	switch(sc->c) {
+	switch(sc->c -1) {
 		case sc_exits :			//	_exits(char*);
 			// mutate the input
 			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
@@ -138,6 +140,7 @@ fuzz(caller *sc)
 		case sc_create :		//	create(char* : int : ulong);
 			// mutate the input
 			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
+			// Segfaults when fuzzing close() ↓
 			mut_int((int*)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 			mut_ulong((ulong*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
 
@@ -458,6 +461,7 @@ fuzz(caller *sc)
 			mut_int((int*)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
 			mut_IOchunkstar((IOchunk**)((t_type*)lget(&(sc->inputs), 1))->var, &sc->round);
 			mut_int((int*)((t_type*)lget(&(sc->inputs), 2))->var, &sc->round);
+			// Segfaults on fuzzing read() ↓
 			mut_vlong((long long*)((t_type*)lget(&(sc->inputs), 3))->var, &sc->round);
 
 			// log the variables

@@ -161,5 +161,6 @@ List*	mkinlist(List*, call);
 
 // main.c
 void dolog(char*, ...);
+void debug(char*, ...);
 
 #endif

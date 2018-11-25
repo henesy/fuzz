@@ -17,3 +17,6 @@ MAN = fuzz.man
 </sys/src/cmd/mkone
 
 # Add things after this line
+
+debug: nuke
+	 mk all 'CFLAGS=$CFLAGS -DDEBUG'
