@@ -57,7 +57,7 @@ mut_charstar(char** in_val, int *round)
     if(*round != ROUND_NUM)
         free(*in_val);
 
-    const int MAX_SIZE = 1024;
+    const int MAX_SIZE = 2048;
     int size = rand() % MAX_SIZE + 1;
 
     *in_val = malloc(sizeof(char) * size);
