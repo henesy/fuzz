@@ -11,6 +11,7 @@
 #define NTYPES 4
 
 // Global variables
+// In main.c
 extern	int		logfd;
 extern	Lock	loglck;
 
