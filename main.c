@@ -60,7 +60,7 @@ main(int argc, char *argv[])
 			dolog("Loading call: %s\n", *argv);
 			ladd(&tofuzz, &syscalls[index]); // Might be dangerous, pls fix
 		}else{
-			print("Error: Invalid system call: %s\n", *argv);
+			fprint(2, "Error: Invalid system call: %s\n", *argv);
 			exits("Encountered invalid syscall");
 		}
 	}
@@ -84,6 +84,8 @@ main(int argc, char *argv[])
 			caller *fcall = (caller*) lget(&tofuzz, j);
 			dolog("­­ Fuzzing: %s ­­\n", fcall->name);
 			
+			fuzz(fcall); // Fuzz, syncs the disk
+			/*
 			// Someone in here is calling exits inappropriately so forking.
 			int pid = rfork(RFFDG|RFREND|RFPROC|RFMEM);
 			if(pid == 0){
@@ -91,7 +93,8 @@ main(int argc, char *argv[])
 				fuzz(fcall); // Fuzz, syncs the disk
 				exits(nil);
 			}
-		}
+			*/
+		}	
 	}
 
 	close(logfd);

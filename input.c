@@ -187,10 +187,12 @@ fuzz(caller *sc)
 			break;
 		case sc_exec :			//	exec(char* : char*[]);
 			//TODO - mut_char_star_arr not implemented
+			fprint(2, "Error: Syscall not implemented!\n");
 			exits("SYSCALL NOT IMPLEMENTED");
 			break;
 		case sc_execl :			//	execl(char* : ...);
 			//TODO - not sure what to do with variable # of parameters
+			fprint(2, "Error: Syscall not implemented!\n");
 			exits("SYSCALL NOT IMPLEMENTED");
 			break;
 		case sc_fork :			//	fork(void);
@@ -344,6 +346,7 @@ fuzz(caller *sc)
 			break;
 		case sc_notify :		//	notify(void(*)(void* : char*));
 			//TODO - this sc takes a function pointer, we don't have infrastructure for that
+			fprint(2, "Error: Syscall not implemented!\n");
 			exits("SYSCALL NOT IMPLEMENTED");
 			break;
 		case sc_open :			//	open(char* : int);
@@ -999,9 +1002,11 @@ fuzz(caller *sc)
 			break;
 		case sc_werrstr :		//	werrstr(char* : ...);
 			//TODO - not sure what to do with variable # of parameters
+			fprint(2, "Error: Syscall not implemented!\n");
 			exits("SYSCALL NOT IMPLEMENTED");
 			break;
 		default:
+			fprint(2, "Error: Unknown system call encountered!\n");
 			exits("Unknown system call");
 	}
 }
@@ -1056,6 +1061,7 @@ log_call(caller *sc)
 				dolog("t_uchar: %c\n", *(unsigned char*) ele->var);
 				break;
 			default :
+				fprint(2, "Error: Encountered unknown input variable type!\n");
 				exits("Unknown input variable type!");
 		}
 		dolog("\n");
