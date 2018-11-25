@@ -130,6 +130,7 @@ mut_longstar(long** in_val, int *round)
     else
     {
 	(**in_val) << (rand() % (4 + 1 - 0) + 0);
+	// Segfaults when fuzzing sleep ↓
 	(**in_val) |= (rand() % (15 + 1 - 0 ) + 0);
     }
 }
