@@ -8,7 +8,7 @@
 
 // Number of calls in enum calls
 #define NCALLS 68
-#define NTYPES 5
+#define NTYPES 16
 
 // Global variables
 // In main.c

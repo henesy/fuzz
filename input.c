@@ -1027,45 +1027,46 @@ log_call(caller *sc)
 	for (x = 0; x < (sc->inputs.size); x++) {
 		t_type* ele = lget(&(sc->inputs), x);
 
-		dolog("\t\t%s : ", callnames[ele->t]);
+		dolog("\t\t%s : ", typenames[ele->t]);
 
 		switch(ele->t) {
 			case t_int :
-				dolog("t_int: %d\n", *(int*) ele->var);
+				dolog("%d\n", *(int*) ele->var);
 				break;
 			case t_uint :
-				dolog("t_uint: %d\n", *(unsigned int*) ele->var);
+				dolog("%d\n", *(unsigned int*) ele->var);
 				break;
 			case t_long :
-				dolog("t_long: %ld\n", *(long*) ele->var);
+				dolog("%ld\n", *(long*) ele->var);
 				break;
 			case t_ulong :
-				dolog("t_ulong: %lud\n", *(unsigned long*) ele->var);
+				dolog("%lud\n", *(unsigned long*) ele->var);
 				break;
 			case t_vlong :
-				dolog("t_vlong: %lld\n", *(long long*) ele->var);
+				dolog("%lld\n", *(long long*) ele->var);
 				break;
 			case t_longS :
-				dolog("t_longS: %ld\n", *(long*) ele->var);
+				dolog("%ld\n", *(long*) ele->var);
 				break;
 			case t_DirS :  //TODO : verify that this works; compiler warns against
-				// dolog("t_DirS: %s\n", (Dir*) ele->var);
+				// It doesn't, Dir* is a pointer to a struct Dir; see libc.h:621
+				// dolog("%s\n", (Dir*) ele->var);
 				break;
 			case t_charS :
 				// TODO -- segfaults
-				// dolog("t_charS: %s\n", *(char**) ele->var);
+				// dolog("%s\n", *(char**) ele->var);
 				break;
 			case t_charSArr :
-				//dolog("t_charSArr: %s\n", (char**) ele->var);
+				//dolog("%s\n", (char**) ele->var);
 				break;
 			case t_char :
-				dolog("t_char: %c\n", *(char*) ele->var);
+				dolog("%c\n", *(char*) ele->var);
 				break;
 			case t_uchar :
-				dolog("t_uchar: %c\n", *(unsigned char*) ele->var);
+				dolog("%c\n", *(unsigned char*) ele->var);
 				break;
 			case t_void:
-				dolog("void: skipping over…\n");
+				dolog("skipping over…\n");
 				break;
 			default :
 				fprint(2, "Error: Encountered unknown input variable type!\n");
@@ -1153,14 +1154,26 @@ char *callnames[NCALLS]= {
 "getppid",
 "rerrstr",
 "sysname",
-"werrstr",
+"werrstr"
 };
 
 // Init callnames here, is extern in fuzz.h
 char *typenames[NTYPES]= {
 "int",
 "int*",
+"uint",
+"IOchunk*",
 "long",
+"long*",
+"ulong",
+"vlong",
 "Dir*",
-"char*"
+"Dir**",
+"char"
+"uchar",
+"uchar*",
+"char*",
+"char*[]",
+"void",
+"void*"
 };
