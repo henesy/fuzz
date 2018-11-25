@@ -7,8 +7,8 @@
 #include "mutate.h"
 
 // Number of calls in enum calls
-#define NCALLS 66
-#define NTYPES 4
+#define NCALLS 68
+#define NTYPES 5
 
 // Global variables
 // In main.c
@@ -27,6 +27,7 @@ If systab doesn't exist, do: cd /sys/src/9/port && mk
 // User space syscall definitions as per libc.h with sc_ prefix added
 typedef int call;
 enum call {
+sc__exits, // unused -- here for offset
 sc_abort	,	//	abort(void);
 sc_access	,	//	access(char*, int);
 sc_alarm	,	//	alarm(ulong);
@@ -40,7 +41,7 @@ sc_dup	,		//	dup(int, int);
 sc_errstr	,	//	errstr(char*, uint);
 sc_exec	,		//	exec(char*, char*[]);
 sc_execl	,	//	execl(char*, ...);
-sc_exits	,	//	_exits(char*);
+sc_exits	,	//	_exits(char*); // unused
 sc_fork	,		//	fork(void);
 sc_rfork	,	//	rfork(int);
 sc_fauth	,	//	fauth(int, char*);
