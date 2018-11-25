@@ -3,6 +3,7 @@
 // Global variables are bad
 int		logfd = -1; // fd of the log file, initialized in main
 Lock	loglck;		// Lock for logger
+Lock	rnglck;		// Lock for rng
 
 // Commandline usage warning
 void
@@ -38,6 +39,18 @@ debug(char *fmt, ...)
 
 	va_end(args);
 	#endif
+}
+
+// Thread-safe sleepable random number generator
+ulong
+rng(void)
+{
+	ulong n;
+	lock(&rnglck);
+	n = fastrand();
+	sleep(MIN_SLEEP);
+	unlock(&rnglck);
+	return n;
 }
 
 /* Prototypes */
@@ -86,7 +99,8 @@ main(int argc, char *argv[])
 	}
 
 	// save so we don't have two different time(0)'s
-	int fuzz_seed = time(0);
+	//int fuzz_seed = time(0);
+	int fuzz_seed = truerand();
 	srand(fuzz_seed);
 	dolog("== Seed Value: %d ==\n", fuzz_seed);
 
