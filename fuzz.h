@@ -3,8 +3,12 @@
 
 #include <u.h>
 #include <libc.h>
+#include <libsec.h>
 #include "list.h"
 #include "mutate.h"
+
+// Minimum amount of time in ms required for rand() to cycle
+#define MIN_SLEEP 128
 
 // Number of calls in enum calls
 #define NCALLS 68
@@ -14,6 +18,7 @@
 // In main.c
 extern	int		logfd;
 extern	Lock	loglck;
+extern	Lock	rnglck;
 
 /*
 For full list of syscalls:
@@ -162,7 +167,8 @@ List*	mkinlist(List*, call);
 // mutate.c → See mutate.h
 
 // main.c
-void dolog(char*, ...);
-void debug(char*, ...);
+void	dolog(char*, ...);
+void	debug(char*, ...);
+ulong	rng(void);
 
 #endif
