@@ -42,15 +42,16 @@ debug(char *fmt, ...)
 }
 
 // Thread-safe sleepable random number generator
-ulong
+int
 rng(void)
 {
-	ulong n;
+	ulong x;
 	lock(&rnglck);
-	n = fastrand();
-	sleep(MIN_SLEEP);
+	// Generate a number: 0 ≤ x ≤ MAXINT
+	x = nrand(MAXINT);
+	debug("DEBUG: Generated num is: %d\n", x);
 	unlock(&rnglck);
-	return n;
+	return x;
 }
 
 /* Prototypes */
@@ -98,8 +99,6 @@ main(int argc, char *argv[])
 		exits("log file create fail");
 	}
 
-	// save so we don't have two different time(0)'s
-	//int fuzz_seed = time(0);
 	int fuzz_seed = truerand();
 	srand(fuzz_seed);
 	dolog("== Seed Value: %d ==\n", fuzz_seed);
