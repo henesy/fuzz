@@ -56,9 +56,9 @@ mut_charstar(char** in_val, int *round)
     int i;
     for(i=0; i < size; i++)
     {
-        (*ptrStr)[i] = 'b';
+        (*in_val)[i] = 'b';
     }
-    (*ptrStr)[size - 1] = '\0';
+    (*in_val)[size - 1] = '\0';
 
     dolog("%s\n", *in_val);
 }
