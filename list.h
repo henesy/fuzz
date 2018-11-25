@@ -1,11 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#define true 1
-#define false 0
-
-#define BUFSIZE 256
-
 /* List (Queue) Architecture */
 typedef struct Node Node;
 typedef struct List List;
