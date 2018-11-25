@@ -3,12 +3,9 @@
 
 #include <u.h>
 #include <libc.h>
-// #include <libsec.h>
 #include "list.h"
 #include "mutate.h"
 
-// Minimum amount of time in ms required for rand() to cycle
-#define MIN_SLEEP 128
 
 // Max signed int value
 #define MAXINT 2147483647
@@ -163,7 +160,6 @@ void	log_call(caller*);
 
 // inlist.c
 List*	mkinlist(List*, call);
-
 
 // list.c → See list.h
 
