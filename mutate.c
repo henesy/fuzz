@@ -13,9 +13,9 @@ mut_int(int* in_val, int *round)
     }
     else
     {
-        (*in_val) << (rng() % (4 + 1 - 0) + 0);
+        *in_val = *in_val << (rng() % (4 + 1 - 0) + 0);
         // Segfaults when fuzzing close() ↓
-        (*in_val) |= (rng() % (15 + 1 - 0) + 0);
+        *in_val = *in_val |= (rng() % (15 + 1 - 0) + 0);
     }
 }
 
