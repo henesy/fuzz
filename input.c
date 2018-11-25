@@ -14,7 +14,7 @@ fuzz(caller *sc)
 	debug("DEBUG: sc_c = %d\n", sc->c);
 
 	// TODO
-	switch(sc->c -1) {
+	switch(sc->c) {
 		case sc_exits :			//	_exits(char*);
 			// mutate the input
 			mut_charstar((char**)((t_type*)lget(&(sc->inputs), 0))->var, &sc->round);
@@ -1063,6 +1063,9 @@ log_call(caller *sc)
 				break;
 			case t_uchar :
 				dolog("t_uchar: %c\n", *(unsigned char*) ele->var);
+				break;
+			case t_void:
+				dolog("void: skipping over…\n");
 				break;
 			default :
 				fprint(2, "Error: Encountered unknown input variable type!\n");
