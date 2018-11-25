@@ -76,13 +76,21 @@ mut_charstar(char** in_val, int *round)
 void
 mut_ucharstar(unsigned char** in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    // if not round 1, free the previously malloc-ed memory
+    if(*round != ROUND_NUM)
+        free(*in_val);
+
+    const int MAX_SIZE = 2048;
+    int size = rand() % MAX_SIZE + 1;
+
+    *in_val = malloc(sizeof(char) * size);
+
+    int i;
+    for(i = 0; i < size; i++)
     {
-        //*in_val = rand();
+        (*in_val)[i] = rand() % 255;
     }
-    else
-    {
-    }
+    (*in_val)[size - 1] = '\0';
 }
 
 int
