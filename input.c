@@ -4,10 +4,6 @@
 void
 fuzz(caller *sc)
 {
-
-	// seed srand from current seed
-	srand(sc->seed);
-
 	// increment the round counter
 	(sc->round)++;
 
