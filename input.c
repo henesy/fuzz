@@ -1101,6 +1101,7 @@ char *callnames[NCALLS]= {
 "errstr",
 "exec",
 "execl",
+"exits",
 "fork",
 "rfork",
 "fauth",
@@ -1152,12 +1153,13 @@ char *callnames[NCALLS]= {
 "getppid",
 "rerrstr",
 "sysname",
-"werrstr"
+"werrstr",
 };
 
 // Init callnames here, is extern in fuzz.h
 char *typenames[NTYPES]= {
 "int",
+"int*",
 "long",
 "Dir*",
 "char*"
