@@ -65,7 +65,7 @@ mut_charstar(char** in_val, int *round)
     int i;
     for(i = 0; i < size; i++)
     {
-        (*in_val)[i] = 'b';
+        (*in_val)[i] = rand() % 255;
     }
     (*in_val)[size - 1] = '\0';
 
