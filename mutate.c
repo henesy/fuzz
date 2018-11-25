@@ -15,6 +15,7 @@ mut_int(int* in_val, int *round)
     else
     {
         (*in_val) << (rand() % (4 + 1 - 0) + 0);
+        // Segfaults when fuzzing close() ↓
         (*in_val) |= (rand() % (15 + 1 - 0) + 0);
     }
 }
@@ -54,12 +55,13 @@ void
 mut_charstar(char** in_val, int *round)
 {
     // if not round 1, free the previously malloc-ed memory
-    if(*round != ROUND_NUM)
+    if(*round != ROUND_NUM && *round != 0)
         free(*in_val);
 
     const int MAX_SIZE = 2048;
     int size = rand() % MAX_SIZE + 1;
 
+		in_val = malloc(sizeof(char*) * 1);
     *in_val = malloc(sizeof(char) * size);
 
     int i;
