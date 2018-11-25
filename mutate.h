@@ -9,11 +9,13 @@ void mut_uint(uint*, int*);
 
 void mut_char(char*, int*);
 
-void mut_charstar(char**, int*);
+char* mut_charstar(void);
 
 void mut_ucharstar(unsigned char**, int*);
 
-int mut_charstararr(char***, int*);
+int mut_charstararr(char***);
+
+void free_charstararr(char***, int);
 
 void mut_long(long*, int*);
 

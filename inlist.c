@@ -130,7 +130,7 @@ void mk_ucharS(List *l)
 void mk_charS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    tt->var = nil;
+    tt->var = malloc(1* sizeof(char*));
     tt->t = t_charS;
 
     ladd(l, tt);

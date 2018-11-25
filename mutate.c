@@ -22,7 +22,6 @@ mut_int(int* in_val, int *round)
 void
 mut_intstar(int** in_val, int* round)
 {
-	// TODO -- Sean sanity check plz
 	if(*round == ROUND_NUM)
 	{
 		in_val = (int**) malloc(sizeof(int*));
@@ -50,28 +49,72 @@ mut_uint(unsigned int* in_val, int *round)
     }
 }
 
-void
-mut_charstar(char** in_val, int *round)
+char*
+mut_charstar()
 {
+	int size = (rng() % (256 + 1 - 2) + 2);
+	char* val = calloc(size, sizeof(char));
+	int i;
+	for(i = 0; i < size - 1; i++)
+	{
+	    val[i] = rng() % 255;
+	}    
+	return val;
+/*
     // if not round 1, free the previously malloc-ed memory
-    if(*round != ROUND_NUM && *round != 0)
-        free(*in_val);
-
-    const int MAX_SIZE = 2048;
-    int size = rng() % MAX_SIZE + 1;
-
-		in_val = malloc(sizeof(char*) * 1);
-    *in_val = malloc(sizeof(char) * size);
-
-    int i;
-    for(i = 0; i < size; i++)
+    if(in_val != nil)//*round != ROUND_NUM && *round != 0)
     {
-        (*in_val)[i] = rng() % 255;
+    //    free(*in_val);
+	debug("mut_charstar: in_val != nil\n");
     }
-    (*in_val)[size - 1] = '\0';
+    if (*round == 1)
+    {
+        in_val = malloc(1 * sizeof(char*));
+    }
 
+    if(*round > 0){
+	    const int MAX_SIZE = 256;
+	    int size = rng() % MAX_SIZE + 1;
 
-    dolog("[mutate.c mut_charstar] Value of in_val: %s\n", *in_val);
+	    debug("inside mut, round: %d in_val: %p\n", *round, in_val);
+
+	    *in_val = malloc(sizeof(char) * size);
+	    // in_val = malloc(size * sizeof(char));
+
+	    int i;
+	    for(i = 0; i < size; i++)
+	    {
+		(*in_val)[i] = rng() % 255;
+	    }
+	    (*in_val)[size - 1] = '\0';
+    debug("mut_charstar: *in_val : %s\n", *in_val);
+    debug("mut_charstar: in_val : %p\n", in_val);
+	
+    }
+*/
+/*	if (*round == 1)
+	{
+		char** c = malloc(1 * sizeof(char*));
+		in_val = c;
+	}
+	if (*round > 0)
+	{
+		const int MAX_SIZE = 256;
+	    	int size = rng() % MAX_SIZE + 1;
+
+	    	debug("inside mut, round: %d in_val: %p\n", *round, in_val);
+
+		char** c = (char**) in_val;
+		*c = malloc(size * sizeof(char));
+		debug("inside mut, round %d c: %p in_val: %p\n", *round, c, in_val);
+		int i;
+		for(i = 0; i < size; i++)
+		{
+			(*c)[i] = rng() % 255;
+		}
+		(*c)[size - 1] = '\0';
+
+	}*/
 }
 
 void
@@ -95,11 +138,41 @@ mut_ucharstar(unsigned char** in_val, int *round)
 }
 
 int
-mut_charstararr(char*** in_val, int *round)
+mut_charstararr(char*** in_val)
 {
-    int length = (rng() % (64 + 1 - 1) + 1);
+    int length = (rng() % (16 + 1 - 1) + 1);
+	dolog("Length: %d", length);
+	hjsync();
+    // malloc the pointer to the array
+    in_val = malloc(sizeof(char*));
+    // malloc the pointer to the char arrays
+    *in_val = malloc(length * sizeof(char*));
+
+    int y, z;
+    for (y = 0; y < length; y++)
+    {
+        // malloc the char arrays
+	int size = (rng() % (64 + 1 - 2) + 2);
+	*in_val[y] = calloc(size, sizeof(char));
+	// init the chars to rng values
+	for (z = 0; z < size - 1; z++)
+	{
+	    *in_val[y][z] = (rng() % (255 + 1 - 1) + 1);
+	}
+    }
 
     return length;
+}
+
+void free_charstararr(char*** in_val, int len)
+{
+	int x;
+	for (x = 0; x < len; x++)
+	{
+		free(*in_val[x]);
+	}
+	free(*in_val);
+	free(in_val);
 }
 
 void

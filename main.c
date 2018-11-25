@@ -49,7 +49,7 @@ rng(void)
 	lock(&rnglck);
 	// Generate a number: 0 ≤ x ≤ MAXINT
 	x = nrand(MAXINT);
-	debug("DEBUG: Generated num is: %d\n", x);
+	//debug("DEBUG: Generated num is: %d\n", x);
 	unlock(&rnglck);
 	return x;
 }
