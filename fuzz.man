@@ -25,6 +25,11 @@ Perform fuzzing for \fIrounds\fR iterations.
 .PP
 .SH EXAMPLES
 
+To print all system calls known by fuzz:
+.EX
+fuzz ?
+.EE
+
 To fuzz the read and write system calls for two rounds:
 .EX
 fuzz -n 2 read write

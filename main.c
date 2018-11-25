@@ -78,6 +78,14 @@ main(int argc, char *argv[])
 	// Initialize the table of all system calls
 	initsctable();
 
+	// If the call name '?' is specified as the first argument, print all call names
+	if(strcmp(*argv, "?") == 0){
+		int i;
+		for(i = 0; i < NCALLS; i++)
+			print("%s\n", callnames[i]);
+		exits("Listing all known system calls");
+	}
+	
 	// Acquire a list of calls specified by spaces (fuzz -n 1 read write seek)
 	for(;*argv;argv++){
 		int index;
