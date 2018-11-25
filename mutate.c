@@ -54,7 +54,7 @@ mut_charstar(char** in_val, int *round)
     *in_val = malloc(sizeof(char) * size);
 
     int i;
-    for(i=0; i < size); i++)
+    for(i=0; i < size; i++)
     {
         (*ptrStr)[i] = 'b';
     }
