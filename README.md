@@ -43,3 +43,54 @@ A list of all known system call names can be printed:
 - http://lsub.org/who/nemo/9.intro.pdf
 - http://fxr.watson.org/fxr/source/?v=PLAN9
 
+## Known System Call States
+
+If not specified, state is known to be working.
+
+-Fd2path
+-exits
+-abort
+-Access
+-Bind
+-Chdir
+-Close
+-Create
+-Dup
+-Fork
+-Rfork
+-Fauth
+-Fversion catches bad args, for future work
+-Mount
+-Umount
+-Noted catches that not notified
+-Open
+-Fd2path catches that it is getting bad input
+-Pread catches a general protection violation
+-Pwrite catches general protect viol
+-Read catches general protection violation
+-Readn catches general protection violation
+-Remove
+-Sbrk
+-*sbrk
+-Oseek
+-Swek
+-*seek
+-Segattach catches general protection violation
+-Segbrk catches general protection violation
+-Segdetach catches general protection violation
+-Segflush catches general protection violation
+-Segfree catches general protection violation
+-Semrelease
+-Semacquire
+-Sleep
+-Tsemacquire
+-Wait
+-Waitpid
+-Write catches general protection violation
+-Rendezvous catches general protection violation
+-Dirstat
+-Dirfstat
+-Getpid
+-Getppid
+-Rerrstr
+-Sysname
