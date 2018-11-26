@@ -65,11 +65,15 @@ main(int argc, char *argv[])
 {
 	int nrounds = -1, i;
 	List tofuzz = mklist() ; // List of syscall table ID's to fuzz
+	char* arg;
 
 	ARGBEGIN{
 		case 'n':
 			// Number of rounds to iterate fuzzing for
-			nrounds = atoi(ARGF());
+			arg = ARGF();
+			if(arg == nil)
+				usage();
+			nrounds = atoi(arg);
 			break;
 		default:
 			usage();
