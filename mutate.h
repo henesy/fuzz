@@ -11,7 +11,7 @@ void mut_char(char*, int*);
 
 char* mut_charstar(void);
 
-void mut_ucharstar(unsigned char**, int*);
+unsigned char* mut_ucharstar(void);
 
 int mut_charstararr(char***);
 
@@ -19,7 +19,7 @@ void free_charstararr(char***, int);
 
 void mut_long(long*, int*);
 
-void mut_longstar(long**, int*);
+long* mut_longstar(void);
 
 void mut_ulong(unsigned long*, int*);
 
