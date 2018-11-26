@@ -31,8 +31,8 @@ mut_intstar(int** in_val, int* round)
 	}
 	else
 	{
-	        (**in_val) << (rng() % (4 + 1 - 0) + 0);
-        	(**in_val) |= (rng() % (15 + 1 - 0) + 0);
+	    **in_val = **in_val << (rng() % (4 + 1 - 0) + 0);
+        **in_val = **in_val |= (rng() % (15 + 1 - 0) + 0);
 	}
 }
 
@@ -45,8 +45,8 @@ mut_uint(unsigned int* in_val, int *round)
     }
     else
     {
-        (*in_val) << (rng() % (4 + 1 - 0) + 0);
-        (*in_val) |= (rng() % (15 + 1 - 0) + 0);
+        *in_val = *in_val << (rng() % (4 + 1 - 0) + 0);
+        *in_val = *in_val |= (rng() % (15 + 1 - 0) + 0);
     }
 }
 
@@ -111,8 +111,8 @@ mut_long(long* in_val, int *round)
     }
     else
     {
-        (*in_val) << (rng() % (4 + 1 - 0) + 0);
-        (*in_val) |= (rng() % (15 + 1 - 0) + 0);
+        *in_val = *in_val << (rng() % (4 + 1 - 0) + 0);
+        *in_val = *in_val |= (rng() % (15 + 1 - 0) + 0);
     }
 }
 
@@ -128,9 +128,9 @@ mut_longstar(long** in_val, int *round)
     }
     else
     {
-	(**in_val) << (rng() % (4 + 1 - 0) + 0);
+        **in_val = **in_val << (rng() % (4 + 1 - 0) + 0);
 	// Segfaults when fuzzing sleep ↓
-	(**in_val) |= (rng() % (15 + 1 - 0 ) + 0);
+        **in_val = **in_val |= (rng() % (15 + 1 - 0 ) + 0);
     }
 }
 
@@ -143,8 +143,8 @@ mut_ulong(unsigned long* in_val, int *round)
     }
     else
     {
-        (*in_val) << (rng() % (4 + 1 - 0) + 0);
-        (*in_val) |= (rng() % (15 + 1 - 0) + 0);
+        *in_val = *in_val << (rng() % (4 + 1 - 0) + 0);
+        *in_val = *in_val |= (rng() % (15 + 1 - 0) + 0);
     }
 }
 
@@ -157,8 +157,8 @@ mut_vlong(long long* in_val, int *round)
     }
     else
     {
-        (*in_val) << (rng() % (4 + 1 - 0) + 0);
-        (*in_val) |= (rng() % (15 + 1 - 0) + 0);
+        *in_val = *in_val << (rng() % (4 + 1 - 0) + 0);
+        *in_val = *in_val |= (rng() % (15 + 1 - 0) + 0);
     }
 }
 
