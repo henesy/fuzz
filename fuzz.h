@@ -11,7 +11,7 @@
 #define MAXINT 2147483647
 
 // Number of calls in enum calls
-#define NCALLS 68
+#define NCALLS 67
 #define NTYPES 16
 
 // Global variables
