@@ -12,7 +12,7 @@ OFILES = main.$O \
 
 HFILES = fuzz.h list.h mutate.h
 
-MAN = fuzz.man
+MAN = /sys/man/1
 
 </sys/src/cmd/mkone
 
