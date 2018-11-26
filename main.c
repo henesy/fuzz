@@ -77,6 +77,10 @@ main(int argc, char *argv[])
 
 	// Initialize the table of all system calls
 	initsctable();
+	
+	// If no system calls are specified, throw usage()
+	if(argc == 0)
+		usage();
 
 	// If the call name '?' is specified as the first argument, print all call names
 	if(strcmp(*argv, "?") == 0){
