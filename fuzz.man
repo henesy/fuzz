@@ -6,6 +6,10 @@ fuzz  \- kernel fuzzer from Plan 9 space
 .SH SYNOPSIS
 .B fuzz
 [
+.B -s
+.I seed
+]
+[
 .B -n
 .I rounds
 ]
@@ -17,6 +21,10 @@ fuzz  \- kernel fuzzer from Plan 9 space
 .PP
 The options are:
 .PD
+
+.TP
+.B -s \fIseed
+Use a specific \fIseed\fR for number generation.
 
 .TP
 .B -n \fIrounds
@@ -33,6 +41,11 @@ fuzz ?
 To fuzz the read and write system calls for two rounds:
 .EX
 fuzz -n 2 read write
+.EE
+
+To fuzz the close system call for 5 rounds using a particular seed:
+.EX
+fuzz -s '-750199259' -n 5 close
 .EE
 
 .PP
