@@ -8,6 +8,7 @@ Lock	loglck;		// Lock for logger
 Lock	rnglck;		// Lock for rng
 char*	logname = "./fuzz.log";	// Name of log file
 
+
 // Commandline usage warning
 void
 usage(void)
@@ -16,46 +17,6 @@ usage(void)
 	exits("usage");
 }
 
-// Perform locked logging operation -- wraps print
-void
-dolog(char *fmt, ...)
-{
-	va_list args;
-	va_start(args, fmt);
-
-	lock(&loglck);
-	Bvprint(logbp, fmt, args);
-	unlock(&loglck);
-
-	va_end(args);
-}
-
-// Perform a debug mode print (if built with -DDEBUG)
-void
-debug(char *fmt, ...)
-{
-	#ifdef DEBUG
-	va_list args;
-	va_start(args, fmt);
-
-	Bvprint(stdout, fmt, args);
-
-	va_end(args);
-	#endif
-}
-
-// Thread-safe sleepable random number generator
-int
-rng(void)
-{
-	ulong x;
-	lock(&rnglck);
-	// Generate a number: 0 ≤ x ≤ MAXINT
-	x = nrand(MAXINT);
-	//debug("DEBUG: Generated num is: %d\n", x);
-	unlock(&rnglck);
-	return x;
-}
 
 /* Prototypes */
 void	initsctable(void);
@@ -135,7 +96,7 @@ main(int argc, char *argv[])
 	// Operate for the desired number of rounds, -1 is infinite
 	for(i = 0; i < nrounds || nrounds < 0; i++){
 		int j;
-		dolog("== Begin round %d ==\n", i);
+		dolog("== Begin round %d ==\n\n", i);
 		
 		debug("DEBUG: i: %d nrounds: %d\n", i, nrounds);
 		
@@ -154,13 +115,16 @@ main(int argc, char *argv[])
 
 	// Clean up
 	Bflush(logbp);
-	Bflush(stdout);
-	Bterm(stdout);
 	Bterm(logbp);
 	close(logfd);
+
+	Bflush(stdout);
+	Bterm(stdout);
+
 	Bflush(hjbp);
 	Bterm(hjbp);
 	close(hjfd);
+
 	exits(nil);
 }
 
@@ -189,4 +153,48 @@ name2index(char* name)
 			return i;
 	}
 	return -1;
+}
+
+
+/* Exported in fuzz.h ↓ */
+
+
+// Perform locked logging operation -- wraps print
+void
+dolog(char *fmt, ...)
+{
+	va_list args;
+	va_start(args, fmt);
+
+	lock(&loglck);
+	Bvprint(logbp, fmt, args);
+	unlock(&loglck);
+
+	va_end(args);
+}
+
+// Perform a debug mode print (if built with -DDEBUG)
+void
+debug(char *fmt, ...)
+{
+	#ifdef DEBUG
+	va_list args;
+	va_start(args, fmt);
+
+	Bvprint(stdout, fmt, args);
+
+	va_end(args);
+	#endif
+}
+
+// Thread-safe sleepable random number generator
+int
+rng(void)
+{
+	ulong x;
+	lock(&rnglck);
+	// Generate a number: 0 ≤ x ≤ MAXINT
+	x = nrand(MAXINT);
+	unlock(&rnglck);
+	return x;
 }

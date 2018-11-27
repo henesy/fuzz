@@ -1,9 +1,10 @@
 #include "fuzz.h"
 
-// HERE BE DRAGONS -- this should be moved to a generator
+// HERE BE DRAGONS
 // Generate the input list for the given syscall
 
-void mk_int(List *l)
+void
+mk_int(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(int));
@@ -13,7 +14,8 @@ void mk_int(List *l)
     ladd(l, tt);
 }
 
-void mk_intS(List *l)
+void
+mk_intS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = nil;
@@ -22,7 +24,8 @@ void mk_intS(List *l)
     ladd(l, tt);
 }
 
-void mk_uint(List *l)
+void
+mk_uint(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(unsigned int));
@@ -32,7 +35,8 @@ void mk_uint(List *l)
     ladd(l, tt);
 }
 
-void mk_IOchunkS(List *l)
+void
+mk_IOchunkS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = nil;
@@ -41,7 +45,8 @@ void mk_IOchunkS(List *l)
     ladd(l, tt);
 }
 
-void mk_long(List *l)
+void
+mk_long(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(long));
@@ -51,7 +56,8 @@ void mk_long(List *l)
     ladd(l, tt);
 }
 
-void mk_longS(List *l)
+void
+mk_longS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(1 * sizeof(t_type));
@@ -60,7 +66,8 @@ void mk_longS(List *l)
     ladd(l, tt);
 }
 
-void mk_ulong(List *l)
+void
+mk_ulong(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(unsigned long));
@@ -70,7 +77,8 @@ void mk_ulong(List *l)
     ladd(l, tt);
 }
 
-void mk_vlong(List *l)
+void
+mk_vlong(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(long long));
@@ -80,7 +88,8 @@ void mk_vlong(List *l)
     ladd(l, tt);
 }
 
-void mk_DirS(List *l)
+void
+mk_DirS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = nil;
@@ -89,7 +98,8 @@ void mk_DirS(List *l)
     ladd(l, tt);
 }
 
-void mk_DirSS(List *l)
+void
+mk_DirSS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = nil;
@@ -98,7 +108,8 @@ void mk_DirSS(List *l)
     ladd(l, tt);
 }
 
-void mk_char(List *l)
+void
+mk_char(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(char));
@@ -108,7 +119,8 @@ void mk_char(List *l)
     ladd(l, tt);
 }
 
-void mk_uchar(List *l)
+void
+mk_uchar(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(sizeof(unsigned char));
@@ -118,7 +130,8 @@ void mk_uchar(List *l)
     ladd(l, tt);
 }
 
-void mk_ucharS(List *l)
+void
+mk_ucharS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = nil;
@@ -127,7 +140,8 @@ void mk_ucharS(List *l)
     ladd(l, tt);
 }
 
-void mk_charS(List *l)
+void
+mk_charS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = malloc(1* sizeof(char*));
@@ -136,7 +150,8 @@ void mk_charS(List *l)
     ladd(l, tt);
 }
 
-void mk_void(List *l)
+void
+mk_void(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = nil;
@@ -145,7 +160,8 @@ void mk_void(List *l)
     ladd(l, tt);
 }
 
-void mk_voidS(List *l)
+void
+mk_voidS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
     tt->var = nil;

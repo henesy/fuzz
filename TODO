@@ -1,0 +1,9 @@
+- Literally any sandboxing at all
+
+- Move all the hardcoded tables to auto-generated tables via lex/yacc
+
+- No build warnings
+
+- Multi-threaded and thread-safe
+
+- Nicely log errors to log file as well, without adding teardown complexity

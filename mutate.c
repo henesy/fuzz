@@ -1,13 +1,12 @@
 #include "fuzz.h"
 
-#ifndef ROUND_NUM
-#define ROUND_NUM 1
-#endif // ROUND_NUM
+// This is the round where if pointers are nil we must then allocate and permutate further from
+#define MALLOC_ROUND 1
 
 void
 mut_int(int* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         *in_val = rng();
     }
@@ -22,7 +21,7 @@ mut_int(int* in_val, int *round)
 void
 mut_intstar(int** in_val, int* round)
 {
-	if(*round == ROUND_NUM)
+	if(*round == MALLOC_ROUND)
 	{
 		in_val = (int**) malloc(sizeof(int*));
 		*in_val = (int*) malloc(sizeof(int));
@@ -38,7 +37,7 @@ mut_intstar(int** in_val, int* round)
 void
 mut_uint(unsigned int* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         *in_val = rng();
     }
@@ -62,7 +61,7 @@ mut_charstar()
 	return val;
 /*
     // if not round 1, free the previously malloc-ed memory
-    if(in_val != nil)//*round != ROUND_NUM && *round != 0)
+    if(in_val != nil)//*round != MALLOC_ROUND && *round != 0)
     {
     //    free(*in_val);
 	debug("mut_charstar: in_val != nil\n");
@@ -171,7 +170,7 @@ void free_charstararr(char*** in_val, int len)
 void
 mut_long(long* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         *in_val = (rng() << 16) | rng();
     }
@@ -193,7 +192,7 @@ mut_longstar()
 void
 mut_ulong(unsigned long* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         *in_val = (rng() << 16) | rng();
     }
@@ -207,7 +206,7 @@ mut_ulong(unsigned long* in_val, int *round)
 void
 mut_vlong(long long* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         *in_val = (rng() << 48) | (rng() << 32) | (rng() << 16) | rng();
     }
@@ -221,7 +220,7 @@ mut_vlong(long long* in_val, int *round)
 void
 mut_void(void* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         //*in_val = rng();
     }
@@ -233,7 +232,7 @@ mut_void(void* in_val, int *round)
 void
 mut_voidstar(void** in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         //*in_val = rng();
     }
@@ -245,7 +244,7 @@ mut_voidstar(void** in_val, int *round)
 void
 mut_IOchunk(IOchunk* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         //*in_val = rng();
     }
@@ -257,7 +256,7 @@ mut_IOchunk(IOchunk* in_val, int *round)
 void
 mut_IOchunkstar(IOchunk** in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         //*in_val = rng();
     }
@@ -269,7 +268,7 @@ mut_IOchunkstar(IOchunk** in_val, int *round)
 void
 mut_dir(Dir* in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         //*in_val = rng();
     }
@@ -281,7 +280,7 @@ mut_dir(Dir* in_val, int *round)
 void
 mut_dirstar(Dir** in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         //*in_val = rng();
     }
@@ -293,7 +292,7 @@ mut_dirstar(Dir** in_val, int *round)
 void
 mut_dirstar_star(Dir*** in_val, int *round)
 {
-    if(*round == ROUND_NUM)
+    if(*round == MALLOC_ROUND)
     {
         //*in_val = rng();
     }

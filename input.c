@@ -1022,9 +1022,6 @@ fuzz(caller *sc)
 void
 log_call(caller *sc)
 {
-	// dolog("\nSystem Call: %s\n", sc->name);
-	// legacy since this is printed elsewhere
-	//dolog("\n\tRound #: %d\n", sc->round);
 	dolog("Arguments:\n");
 	int x;
 	for (x = 0; x < (sc->inputs.size); x++) {
@@ -1087,6 +1084,7 @@ log_call(caller *sc)
 			default :
 				sysfatal("Error: Encountered unknown input variable type: %d", ele->t);
 		}
+
 		dolog("\n");
 	}
 }

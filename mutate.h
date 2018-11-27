@@ -1,6 +1,3 @@
-#ifndef MUT_H
-#define MUT_H
-
 void mut_int(int*, int*);
 
 void mut_intstar(int**, int*);
@@ -38,5 +35,3 @@ void mut_dir(Dir*, int*);
 void mut_dirstar(Dir**, int*);
 
 void mut_dirstar_star(Dir***, int*);
-
-#endif
