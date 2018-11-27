@@ -54,7 +54,7 @@ void mk_long(List *l)
 void mk_longS(List *l)
 {
     t_type *tt = malloc(sizeof(t_type));
-    tt->var = nil;
+    tt->var = malloc(1 * sizeof(t_type));
     tt->t = t_longS;
 
     ladd(l, tt);
