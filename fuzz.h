@@ -4,6 +4,7 @@
 #include <u.h>
 #include <libc.h>
 #include <bio.h>
+
 #include "list.h"
 #include "mutate.h"
 
@@ -29,7 +30,8 @@ extern	Lock	rnglck;
 /*
 For full list of syscalls:
 
-If systab doesn't exist, do: cd /sys/src/9/port && mk
+If systab doesn't exist → cd /sys/src/9/port && mk
+
 /sys/src/9/port/systab.h
 /sys/src/libc/9syscall/sys.h
 /sys/include/libc.h:537
@@ -38,7 +40,7 @@ If systab doesn't exist, do: cd /sys/src/9/port && mk
 // User space syscall definitions as per libc.h with sc_ prefix added
 typedef int call;
 enum call {
-sc__exits, // unused -- here for offset
+sc__exits,		// unused -- here for offset
 sc_abort	,	//	abort(void);
 sc_access	,	//	access(char*, int);
 sc_alarm	,	//	alarm(ulong);
@@ -137,10 +139,10 @@ struct t_type
 	type	t;		// Type of the variable to cast to
 };
 
-// Type names table -- in input.c
+// Type names table -- see: input.c
 extern char *typenames[NTYPES];
 
-// User space system call names table -- NCALLS length -- in input.c
+// User space system call names table -- see: input.c
 extern char *callnames[NCALLS];
 
 // Structure to track state of system calling
