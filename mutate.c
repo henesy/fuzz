@@ -52,7 +52,7 @@ mut_uint(unsigned int* in_val, int *round)
 char*
 mut_charstar()
 {
-	int size = (rng() % (256 + 1 - 2) + 2);
+	int size = (rng() % (64 + 1 - 2) + 2);
 	char* val = calloc(size, sizeof(char));
 	int i;
 	for(i = 0; i < size - 1; i++)
@@ -117,24 +117,17 @@ mut_charstar()
 	}*/
 }
 
-void
-mut_ucharstar(unsigned char** in_val, int *round)
+unsigned char*
+mut_ucharstar()
 {
-    // if not round 1, free the previously malloc-ed memory
-    if(*round != ROUND_NUM)
-        free(*in_val);
-
-    const int MAX_SIZE = 2048;
-    int size = rng() % MAX_SIZE + 1;
-
-    *in_val = malloc(sizeof(char) * size);
-
-    int i;
-    for(i = 0; i < size; i++)
-    {
-        (*in_val)[i] = rng() % 255;
-    }
-    (*in_val)[size - 1] = '\0';
+	int size = (rng() % (64 + 1 - 2) + 2);
+	unsigned char* val = calloc(size, sizeof(char));
+	int i;
+	for(i = 0; i < size - 1; i++)
+	{
+	    val[i] = rng() % 255;
+	}    
+	return val;
 }
 
 int
@@ -189,22 +182,12 @@ mut_long(long* in_val, int *round)
     }
 }
 
-void
-mut_longstar(long** in_val, int *round)
+long*
+mut_longstar()
 {
-    if(*round == ROUND_NUM)
-    {
-	// TODO -- check that this is correct
-	in_val = (long**) malloc(sizeof(long*));
-	*in_val = (long*) malloc(sizeof(long));
-	**in_val = (rng() << 16) | rng();
-    }
-    else
-    {
-        **in_val = **in_val << (rng() % (4 + 1 - 0) + 0);
-	// Segfaults when fuzzing sleep ↓
-        **in_val = **in_val |= (rng() % (15 + 1 - 0 ) + 0);
-    }
+	long* val = (long*) malloc(sizeof(long));
+	*val = (rng() << 16) | rng();
+	return val;
 }
 
 void

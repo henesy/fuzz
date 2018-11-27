@@ -12,7 +12,7 @@ char*	logname = "./fuzz.log";	// Name of log file
 void
 usage(void)
 {
-	fprint(2, "usage: %s [-n rounds] calls\n", argv0);
+	fprint(2, "usage: %s [-s seed] [-n rounds] calls\n", argv0);
 	exits("usage");
 }
 
@@ -70,6 +70,7 @@ main(int argc, char *argv[])
 	List tofuzz = mklist() ; // List of syscall table ID's to fuzz
 	char* arg;
 	stdout = Bfdopen(1, OWRITE);
+	long fuzz_seed = truerand();
 
 	ARGBEGIN{
 		case 'n':
@@ -78,6 +79,13 @@ main(int argc, char *argv[])
 			if(arg == nil)
 				usage();
 			nrounds = atoi(arg);
+			break;
+		case 's':
+			// Seed to fuzz from
+			arg = ARGF();
+			if(arg == nil)
+				usage();
+			fuzz_seed = atol(arg);
 			break;
 		default:
 			usage();
@@ -121,7 +129,6 @@ main(int argc, char *argv[])
 			sysfatal("Error: Invalid system call: %s", *argv);
 	}
 
-	int fuzz_seed = truerand();
 	srand(fuzz_seed);
 	dolog("== Seed Value: %d ==\n", fuzz_seed);
 
