@@ -1,9 +1,12 @@
 #include "fuzz.h"
 
 // Global variables are bad
-int		logfd = -1; // fd of the log file, initialized in main
+Biobuf*	logbp;		// Bio buffer of the log file, initialized in main
+Biobuf*	stdout;		// ^^ for stdout ;; fd=1
+Biobuf*	hjbp;		// ^^ for #s/hjfs.cmd
 Lock	loglck;		// Lock for logger
 Lock	rnglck;		// Lock for rng
+char*	logname = "./fuzz.log";	// Name of log file
 
 // Commandline usage warning
 void
@@ -21,7 +24,7 @@ dolog(char *fmt, ...)
 	va_start(args, fmt);
 
 	lock(&loglck);
-	vfprint(logfd, fmt, args);
+	Bvprint(logbp, fmt, args);
 	unlock(&loglck);
 
 	va_end(args);
@@ -35,7 +38,7 @@ debug(char *fmt, ...)
 	va_list args;
 	va_start(args, fmt);
 
-	vfprint(1, fmt, args);
+	Bvprint(stdout, fmt, args);
 
 	va_end(args);
 	#endif
@@ -66,6 +69,7 @@ main(int argc, char *argv[])
 	int nrounds = -1, i;
 	List tofuzz = mklist() ; // List of syscall table ID's to fuzz
 	char* arg;
+	stdout = Bfdopen(1, OWRITE);
 
 	ARGBEGIN{
 		case 'n':
@@ -90,9 +94,19 @@ main(int argc, char *argv[])
 	if(strcmp(*argv, "?") == 0){
 		int i;
 		for(i = 0; i < NCALLS; i++)
-			print("%s\n", callnames[i]);
+			Bprint(stdout, "%s\n", callnames[i]);
 		exits("Listing all known system calls");
 	}
+	
+	// Set up buffered output
+	int logfd = create(logname, OWRITE, 0777);
+	if(logfd < 0)
+		sysfatal("Error: Failed to create/open log file %s.", logname);
+
+	logbp = Bfdopen(logfd, OWRITE);
+	
+	int hjfd = open("#s/hjfs.cmd", OWRITE);
+	hjbp = Bfdopen(hjfd, OWRITE);
 	
 	// Acquire a list of calls specified by spaces (fuzz -n 1 read write seek)
 	for(;*argv;argv++){
@@ -103,16 +117,8 @@ main(int argc, char *argv[])
 			
 			dolog("Loading call: %s\n", *argv);
 			ladd(&tofuzz, &syscalls[index]); // Might be dangerous, pls fix
-		}else{
-			fprint(2, "Error: Invalid system call: %s\n", *argv);
-			exits("Encountered invalid syscall");
-		}
-	}
-	
-	logfd = create("./fuzz.log", OWRITE, 0777);
-	if(logfd < 0){
-		fprint(2, "Error: Failed to create/open log file.");
-		exits("log file create fail");
+		}else
+			sysfatal("Error: Invalid system call: %s", *argv);
 	}
 
 	int fuzz_seed = truerand();
@@ -137,8 +143,17 @@ main(int argc, char *argv[])
 		}	
 	}
 
-	fprint(2, "Fuzz ending…\n");
+	Bprint(stdout, "Fuzz ending…\n");
+
+	// Clean up
+	Bflush(logbp);
+	Bflush(stdout);
+	Bterm(stdout);
+	Bterm(logbp);
 	close(logfd);
+	Bflush(hjbp);
+	Bterm(hjbp);
+	close(hjfd);
 	exits(nil);
 }
 

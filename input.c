@@ -201,8 +201,7 @@ fuzz(caller *sc)
 			break;
 		case sc_execl :			//	execl(char* : ...);
 			//TODO - not sure what to do with variable # of parameters
-			fprint(2, "Error: Syscall not implemented!\n");
-			exits("SYSCALL NOT IMPLEMENTED");
+			noimpl();
 			break;
 		case sc_fork :			//	fork(void);
 			// log the variables
@@ -355,8 +354,7 @@ fuzz(caller *sc)
 			break;
 		case sc_notify :		//	notify(void(*)(void* : char*));
 			//TODO - this sc takes a function pointer, we don't have infrastructure for that
-			fprint(2, "Error: Syscall not implemented!\n");
-			exits("SYSCALL NOT IMPLEMENTED");
+			noimpl();
 			break;
 		case sc_open :			//	open(char* : int);
 			// mutate the input
@@ -1012,12 +1010,10 @@ fuzz(caller *sc)
 			break;
 		case sc_werrstr :		//	werrstr(char* : ...);
 			//TODO - not sure what to do with variable # of parameters
-			fprint(2, "Error: Syscall not implemented!\n");
-			exits("SYSCALL NOT IMPLEMENTED");
+			noimpl();
 			break;
 		default:
-			fprint(2, "Error: Unknown system call encountered!\n");
-			exits("Unknown system call");
+			sysfatal("Error: Unknown system call encountered: %d", sc->c);
 		
 	}
 }
@@ -1026,7 +1022,7 @@ fuzz(caller *sc)
 void
 log_call(caller *sc)
 {
-	dolog("\nSystem Call: %s\n", sc->name);
+	// dolog("\nSystem Call: %s\n", sc->name);
 	// legacy since this is printed elsewhere
 	//dolog("\n\tRound #: %d\n", sc->round);
 	dolog("Arguments:\n");
@@ -1089,8 +1085,7 @@ log_call(caller *sc)
 				dolog("skipping over…\n");
 				break;
 			default :
-				fprint(2, "Error: Encountered unknown input variable type!\n");
-				exits("Unknown input variable type!");
+				sysfatal("Error: Encountered unknown input variable type: %d", ele->t);
 		}
 		dolog("\n");
 	}
@@ -1100,10 +1095,8 @@ log_call(caller *sc)
 void
 hjsync()
 {
-	// open file and write to sync disk
-	int hjfs = open("/srv/hjfs.cmd", OWRITE);
-	fprint(hjfs, "sync\n");
-	close(hjfs);
+	// open file and write to sync disk -- maybe make buffered i/o
+	Bprint(hjbp, "sync\n");
 }
 
 // Init callnames here, is extern in fuzz.h

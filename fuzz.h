@@ -3,9 +3,14 @@
 
 #include <u.h>
 #include <libc.h>
+#include <bio.h>
 #include "list.h"
 #include "mutate.h"
 
+
+// Macros
+// Sysfatal if not syscall not implemented
+#define noimpl() sysfatal("Error: Syscall not implemented!");
 
 // Max signed int value
 #define MAXINT 2147483647
@@ -16,7 +21,8 @@
 
 // Global variables
 // In main.c
-extern	int		logfd;
+extern	Biobuf*	logbp;
+extern	Biobuf*	hjbp;
 extern	Lock	loglck;
 extern	Lock	rnglck;
 
