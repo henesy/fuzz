@@ -29,24 +29,17 @@ main(int argc, char *argv[])
 {
 	int nrounds = -1, i;
 	List tofuzz = mklist() ; // List of syscall table ID's to fuzz
-	char* arg;
 	stdout = Bfdopen(1, OWRITE);
 	long fuzz_seed = truerand();
 
 	ARGBEGIN{
 		case 'n':
 			// Number of rounds to iterate fuzzing for
-			arg = ARGF();
-			if(arg == nil)
-				usage();
-			nrounds = atoi(arg);
+			nrounds = atoi(EARGF(usage()));
 			break;
 		case 's':
 			// Seed to fuzz from
-			arg = ARGF();
-			if(arg == nil)
-				usage();
-			fuzz_seed = atol(arg);
+			fuzz_seed = atol(EARGF(usage()));
 			break;
 		default:
 			usage();
@@ -56,7 +49,7 @@ main(int argc, char *argv[])
 	initsctable();
 	
 	// If no system calls are specified, throw usage()
-	if(argc == 0)
+	if(argc < 1)
 		usage();
 
 	// If the call name '?' is specified as the first argument, print all call names
